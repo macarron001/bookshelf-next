@@ -15,6 +15,82 @@ a {
   box-sizing: border-box;
 }
 
+h1 {
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+h3 {
+  text-align: center;
+  font-size: 2em;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+input {
+  border-radius: 3px;
+  border: 1px solid rgb(241, 241, 244);
+  background: rgb(241, 242, 247);
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 2px;
+  margin-bottom: 1.2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 0em;
+  padding: 1.6rem;
+}
+
+label {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.circle {
+  border-radius: 30px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #434449;
+  border: 1px solid #f1f1f4;
+  cursor: pointer;
+}
+
+.dialog {
+  max-width: 450px;
+  border-radius: 3px;
+  padding-bottom: 3.5em !important;
+  box-shadow: rgb(0 0 0 / 20%) 0px 10px 30px -5px;
+  margin: 20vh auto !important;
+}
+
+.close-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .purple {
   padding: 10px 15px;
   border: 0px;
@@ -22,13 +98,8 @@ a {
   border-radius: 3px;
   background: rgb(63, 81, 181);
   color: white;
-}
-
-h1 {
-  font-weight: 500;
-  line-height: 1.2;
-  margin-bottom: 0.5rem;
-  margin-top: 0;
+  cursor: pointer;
+  font-size: 15px;
 }
 
 .white {
@@ -38,6 +109,13 @@ h1 {
   border-radius: 3px;
   background: rgb(241, 242, 247);
   color: rgb(67, 68, 73);
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.form-button {
+  margin-left: 1rem;
+  margin-top: 3px;
 }
 
 .button-container {
