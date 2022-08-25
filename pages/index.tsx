@@ -6,6 +6,7 @@ import { useState } from "react"
 import LoginForm from "../components/LoginForm"
 import styles from "../styles/Home.module.css"
 import Button from "../utils/Button"
+import tw from "tailwind-styled-components"
 
 const Home: NextPage = () => {
   const [openModal, setOpenModal] = useState("none")
