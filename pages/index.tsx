@@ -8,6 +8,7 @@ import {
   Button,
   Title,
 } from "../components/styled"
+import { ToastContainer } from "react-toastify"
 
 const Home: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -34,6 +35,7 @@ const Home: NextPage = () => {
           </Button>
           <Button onClick={handleRegister}>Register</Button>
         </ButtonContainer>
+        <ToastContainer />
       </IndexContainer>
       {isModalOpen && (
         <Modal modalContent={modalContent} setIsModalOpen={setIsModalOpen} />
