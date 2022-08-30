@@ -9,8 +9,10 @@ import {
 } from "./styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
+import { register } from "../api/register"
+import { ToastMessage } from "./toast"
 
-const RegisterForm = () => {
+const RegisterForm = ({ handleClose }) => {
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -22,8 +24,15 @@ const RegisterForm = () => {
         .min(6, "Must have atleast 6 characters")
         .required("Required"),
     }),
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values) => {
+      await register(values).then((res) => {
+        if (res !== 200) {
+          formik.setErrors(res)
+        } else {
+          ToastMessage({ type: "success", message: "Registration Successful" })
+          handleClose()
+        }
+      })
     },
   })
 

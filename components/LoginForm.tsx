@@ -9,6 +9,8 @@ import {
 } from "./styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
+import { login } from "../api/login"
+import { ToastMessage } from "./toast"
 
 const LoginForm = () => {
   const formik = useFormik({
@@ -22,8 +24,14 @@ const LoginForm = () => {
         .min(6, "Must have atleast 6 characters")
         .required("Required"),
     }),
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values) => {
+      await login(values).then((res) => {
+        if (res !== 200) {
+          ToastMessage({ type: "error", message: res })
+        } else {
+          console.log("Login Success") //redirect to main page
+        }
+      })
     },
   })
 
