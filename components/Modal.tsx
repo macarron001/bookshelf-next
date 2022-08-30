@@ -25,7 +25,11 @@ const Modal = ({ modalContent, setIsModalOpen }: ModalProps) => {
           <CircleButton onClick={handleClose}>x</CircleButton>
         </CloseContainer>
         <FormTitle>{modalContent}</FormTitle>
-        {modalContent === "Login" ? <LoginForm /> : <RegisterForm />}
+        {modalContent === "Login" ? (
+          <LoginForm />
+        ) : (
+          <RegisterForm handleClose={handleClose} />
+        )}
       </ModalContent>
     </ModalContainer>
   )
