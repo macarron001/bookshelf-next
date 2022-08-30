@@ -97,7 +97,7 @@ const FormTitle = tw.div`
   font-medium
 `
 
-const AuthenticationForm = tw.div`
+const AuthenticationForm = tw.form`
   flex
   flex-col
   items-stretch
@@ -134,6 +134,12 @@ const FormBtnContainer = tw(ButtonContainer)`
   pt-0
   grid-cols-3
 `
+const Error = tw.span`
+  text-red-700
+  pl-4
+  relative
+  bottom-[18px]
+`
 
 export {
   Button,
@@ -150,4 +156,5 @@ export {
   FormGroup,
   Label,
   FormBtnContainer,
+  Error,
 }
