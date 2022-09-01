@@ -18,8 +18,17 @@ export const register = async ({ username, password }: RegisterProps) => {
     },
   })
     .then((response) => {
+      const user = {
+        id: response.data.id,
+        username: response.data.username,
+        auth: response.headers.authorization,
+      }
       const res = response.status
-      return res
+      const users = JSON.parse(localStorage.getItem("users") || "[]")
+      users.push(user)
+
+      localStorage.setItem("users", JSON.stringify(users))
+      return [res, user]
     })
     .catch((err) => {
       const error = err.response.data.errors
