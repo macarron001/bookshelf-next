@@ -136,6 +136,7 @@ const FormBtnContainer = tw(ButtonContainer)`
 `
 const Error = tw.span`
   text-red-700
+  mt-2
   pl-4
   relative
   bottom-[18px]
