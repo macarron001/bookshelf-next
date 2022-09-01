@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import {
   AuthenticationForm,
   FormBtnContainer,
@@ -12,8 +12,10 @@ import * as Yup from "yup"
 import { login } from "../../api/login"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
+import { UserContext } from "../../context/UserContext"
 
 const LoginForm = () => {
+  const { user, setUser } = useContext(UserContext)
   const router = useRouter()
   const formik = useFormik({
     initialValues: {
@@ -28,9 +30,11 @@ const LoginForm = () => {
     }),
     onSubmit: async (values) => {
       await login(values).then((res) => {
-        if (res !== 200) {
+        if (res.id === undefined) {
+          formik.setErrors(res)
           ToastMessage({ type: "error", message: res })
         } else {
+          setUser(res)
           router.push("/bookshelf")
         }
       })
