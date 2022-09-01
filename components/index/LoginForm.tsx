@@ -6,13 +6,15 @@ import {
   Label,
   Button,
   Error,
-} from "./styled"
+} from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { login } from "../api/login"
-import { ToastMessage } from "./toast"
+import { login } from "../../api/login"
+import { ToastMessage } from "../toast"
+import { useRouter } from "next/router"
 
 const LoginForm = () => {
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -29,7 +31,7 @@ const LoginForm = () => {
         if (res !== 200) {
           ToastMessage({ type: "error", message: res })
         } else {
-          console.log("Login Success") //redirect to main page
+          router.push("/bookshelf")
         }
       })
     },

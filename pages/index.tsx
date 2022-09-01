@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import Image from "next/image"
 import { useState } from "react"
-import Modal from "../components/Modal"
+import Modal from "../components/index/Modal"
 import {
   ButtonContainer,
   IndexContainer,

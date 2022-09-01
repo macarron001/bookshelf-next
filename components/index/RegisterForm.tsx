@@ -6,13 +6,15 @@ import {
   Label,
   Button,
   Error,
-} from "./styled"
+} from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { register } from "../api/register"
-import { ToastMessage } from "./toast"
+import { register } from "../../api/register"
+import { ToastMessage } from "../toast"
+import { useRouter } from "next/router"
 
-const RegisterForm = ({ handleClose }) => {
+const RegisterForm = () => {
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -30,7 +32,7 @@ const RegisterForm = ({ handleClose }) => {
           formik.setErrors(res)
         } else {
           ToastMessage({ type: "success", message: "Registration Successful" })
-          handleClose()
+          router.push("/bookshelf")
         }
       })
     },
