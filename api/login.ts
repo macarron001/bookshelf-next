@@ -18,21 +18,20 @@ export const login = async ({ username, password }: LoginProps) => {
     },
   })
     .then((response) => {
-      const res = response.status
-      const users = []
       const user = {
         id: response.data.id,
         username: response.data.username,
         auth: response.headers.authorization,
       }
 
-      users.push(user)
-
-      localStorage.setItem("user", JSON.stringify(user))
-      return res
+      localStorage.setItem("authToken", JSON.stringify(user.auth))
+      return user
     })
     .catch((err) => {
-      const error = err.response.data
+      const error = {
+        password: err.response.data, // formik only accepts username || password as error
+      }
+
       return error
     })
 }
