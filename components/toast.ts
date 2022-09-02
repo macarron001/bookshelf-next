@@ -11,7 +11,7 @@ export const ToastMessage = ({ type, message }: ToastProps) => {
     case "success":
       return toast.success(message, {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
@@ -21,7 +21,7 @@ export const ToastMessage = ({ type, message }: ToastProps) => {
     case "error":
       toast.error(message, {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
