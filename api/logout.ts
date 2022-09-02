@@ -12,7 +12,7 @@ export const logout = async ({ auth }: LogoutProps) => {
       Authorization: auth,
     },
   }).then((res) => {
-    localStorage.removeItem("authToken")
+    localStorage.removeItem("user")
     return res.status
   })
 }
