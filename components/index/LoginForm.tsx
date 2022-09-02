@@ -32,7 +32,7 @@ const LoginForm = () => {
       await login(values).then((res) => {
         if (res.id === undefined) {
           formik.setErrors(res)
-          ToastMessage({ type: "error", message: res })
+          ToastMessage({ type: "error", message: res.password })
         } else {
           setUser(res)
           router.push("/bookshelf")
