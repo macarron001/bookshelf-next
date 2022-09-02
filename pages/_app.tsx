@@ -2,6 +2,7 @@ import "../styles/globals.css"
 import type { AppProps } from "next/app"
 import { UserContext } from "../context/UserContext"
 import { useMemo, useState } from "react"
+import { ToastContainer } from "react-toastify"
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(null)
@@ -10,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserContext.Provider value={value}>
       <Component {...pageProps} />
+      <ToastContainer />
     </UserContext.Provider>
   )
 }
