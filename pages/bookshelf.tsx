@@ -13,33 +13,24 @@ import { BooksContext } from "../context/BooksContext"
 const Home: NextPage = () => {
   const [active, setActive] = useState("Reading List")
   const { user, setUser } = useContext(UserContext)
-  const [books, setBooks] = useState(null)
+  const { books, setBooks } = useContext(BooksContext)
   const value = useMemo(() => ({ books, setBooks }), [books, setBooks])
   const router = useRouter()
 
   useEffect(() => {
     const existingUser = JSON.parse(localStorage.getItem("user"))
-    if (existingUser) {
-      setUser(existingUser)
-    } else {
-      router.push("/")
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    existingUser ? setUser(existingUser) : router.push("/")
 
-  useEffect(() => {
     const existingBooks = JSON.parse(localStorage.getItem("books"))
-    if (existingBooks) {
-      setBooks(existingBooks)
-    }
+    existingBooks ? setBooks(existingBooks) : ""
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     const fetchBooks = async () => {
-      if (user) {
+      if (user && !books) {
+        console.log("books fetched")
         const bookList = await getBooks(user)
-        console.log(bookList)
         setBooks(bookList)
       }
     }
@@ -47,15 +38,14 @@ const Home: NextPage = () => {
     fetchBooks().catch(console.error)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   return (
     <>
-      <BooksContext.Provider value={value}>
-        <LogoutBox />
-        <Container>
-          <Navigation active={active} setActive={setActive} />
-          {active === "Discover" && <Discover />}
-        </Container>
-      </BooksContext.Provider>
+      <LogoutBox />
+      <Container>
+        <Navigation active={active} setActive={setActive} />
+        {active === "Discover" && <Discover />}
+      </Container>
     </>
   )
 }
