@@ -113,7 +113,6 @@ const Title = tw.h2`
 
 const SideBar = tw.div`
   right-20
-  text-gray-500
   flex
   flex-col
   justify-center
@@ -141,22 +140,6 @@ const Synopsis = tw.p`
   max-h-[270px]
 `
 
-const PlusButton = tw.button`
-  bg-slate-400
-  rounded-[50%]
-  text-sm
-  z-10
-  cursor-pointer
-`
-const RoundBorder = tw.div`
-  w-[35px] 
-  h-[35px] 
-  rounded-[50%] 
-  border-solid 
-  border-[1px] 
-  absolute
-`
-
 const SearchForm = tw.form`
   w-full
   p-0
@@ -181,6 +164,15 @@ const SearchButton = tw.button`
   cursor-pointer
 `
 
+const ExtendedSideBar = tw.div`
+  right-20
+text-gray-500
+  h-full
+  flex
+  flex-col
+  justify-around
+`
+
 export {
   Container,
   LogoutContainer,
@@ -200,10 +192,9 @@ export {
   Publisher,
   InfoBox,
   Synopsis,
-  PlusButton,
-  RoundBorder,
   SearchForm,
   SearchButton,
   SearchInput,
   SearchLabel,
+  ExtendedSideBar,
 }
