@@ -1,13 +1,53 @@
-import React from "react"
+import React, { useState, useContext } from "react"
+import {
+  SearchButton,
+  SearchForm,
+  SearchInput,
+  SearchLabel,
+} from "../../styled/bookshelf"
+import { BookContent } from "../../styled/bookshelf"
+import { BooksContext } from "./../../../context/BooksContext"
+import Book from "../Book"
 
-const SearchBox = () => {
+const SearchBox = ({ setIsSearching }) => {
+  const [filteredData, setFilteredData] = useState()
+  const [searchInput, setSearchInput] = useState()
+  const { books } = useContext(BooksContext)
+
+  const handleChange = (e) => {
+    setSearchInput(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const filteredBooks = books.filter((book) => {
+      return book.title.toLowerCase().includes(searchInput.toLowerCase())
+    })
+    setFilteredData(filteredBooks)
+    setIsSearching(true)
+  }
+
   return (
-    <form className="search-form">
-      <input className="search-input" placeholder="Search books..." />
-      <label className="serch-label">
-        <button className="search-button">🔍</button>
-      </label>
-    </form>
+    <>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchInput
+          placeholder="Search books..."
+          onChange={handleChange}
+          value={searchInput}
+        />
+        <SearchLabel>
+          <SearchButton>🔍</SearchButton>
+        </SearchLabel>
+      </SearchForm>
+      {filteredData &&
+        filteredData.map((data) => {
+          return (
+            <div key={data.title}>
+              <Book book={data} />
+            </div>
+          )
+        })}
+    </>
   )
 }
 
