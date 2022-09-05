@@ -33,31 +33,6 @@ input {
   margin-bottom: 1.2rem;
 }
 
-.search-input {
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 10px;
-}
-
-.search-form {
-  width: 100%;
-  padding: 0, 0;
-  margin-top: 0;
-}
-
-.search-label {
-  display: inline-block;
-}
-
-.search-button {
-  border-width: 0;
-  position: relative;
-  margin-left: -35px;
-  background: transparent;
-  cursor: pointer;
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
