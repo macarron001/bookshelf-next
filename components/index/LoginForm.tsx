@@ -15,7 +15,6 @@ import { useRouter } from "next/router"
 import { UserContext } from "../../context/UserContext"
 
 const LoginForm = () => {
-  const { user, setUser } = useContext(UserContext)
   const router = useRouter()
   const formik = useFormik({
     initialValues: {
@@ -40,6 +39,12 @@ const LoginForm = () => {
       })
     },
   })
+
+  const context = useContext(UserContext)
+  if (!context) {
+    return null
+  }
+  const { setUser } = context
 
   return (
     <AuthenticationForm>

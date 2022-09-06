@@ -13,8 +13,13 @@ import {
   SideBar,
   ExtendedSideBar,
 } from "../styled/bookshelf"
+import { BookInterface } from "../../api/types"
 
-const Book = ({ book }) => {
+interface BookProps {
+  book: BookInterface
+}
+
+const Book = ({ book }: BookProps) => {
   const [isAdding, setIsAdding] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 

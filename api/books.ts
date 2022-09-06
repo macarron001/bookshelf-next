@@ -1,6 +1,9 @@
 import axios from "axios"
 
-export const getBooks = async ({ auth }) => {
+type GetBooksProps = {
+  auth: string
+}
+export const getBooks = async ({ auth }: GetBooksProps) => {
   return await axios({
     url: "http://127.0.0.1:3001//api/books",
     method: "GET",

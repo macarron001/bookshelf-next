@@ -6,8 +6,12 @@ import { Button } from "../styled"
 import { logout } from "../../api/logout"
 
 const LogoutBox = () => {
-  const { user, setUser } = useContext(UserContext)
+  const context = useContext(UserContext)
   const router = useRouter()
+  if (!context) {
+    return null
+  }
+  const { user, setUser } = context
 
   const handleLogout = async () => {
     const response = await logout(user)

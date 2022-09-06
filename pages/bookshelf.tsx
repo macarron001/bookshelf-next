@@ -15,16 +15,13 @@ const Home: NextPage = () => {
   const [active, setActive] = useState<ActivePageEnum | string>(
     ActivePageEnum.to_read
   )
-  const { user, setUser } = useContext(UserContext)
-  const { books, setBooks } = useContext(BooksContext)
-  const value = useMemo(() => ({ books, setBooks }), [books, setBooks])
   const router = useRouter()
 
   useEffect(() => {
-    const existingUser = JSON.parse(localStorage.getItem("user"))
+    const existingUser = JSON.parse(localStorage.getItem("user") || "null")
     existingUser ? setUser(existingUser) : router.push("/")
 
-    const existingBooks = JSON.parse(localStorage.getItem("books"))
+    const existingBooks = JSON.parse(localStorage.getItem("books") || "null")
     existingBooks ? setBooks(existingBooks) : ""
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -41,6 +38,18 @@ const Home: NextPage = () => {
     fetchBooks().catch(console.error)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const contextUser = useContext(UserContext)
+  const contextBooks = useContext(BooksContext)
+  if (!contextUser) {
+    return null
+  }
+  const { user, setUser } = contextUser
+
+  if (!contextBooks) {
+    return null
+  }
+  const { books, setBooks } = contextBooks
 
   return (
     <>
