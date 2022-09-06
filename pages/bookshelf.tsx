@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     existingUser ? setUser(existingUser) : router.push("/")
 
     const existingBooks = JSON.parse(localStorage.getItem("books") || "null")
-    existingBooks ? setBooks(existingBooks) : ""
+    if (existingBooks) setBooks(existingBooks)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
