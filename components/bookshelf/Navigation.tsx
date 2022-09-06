@@ -1,7 +1,13 @@
-import React, { useState } from "react"
+import React, { Dispatch, SetStateAction, useState } from "react"
+import { ActivePageEnum } from "../../api/enums"
 import { NavBox, NavList, Link } from "../styled/bookshelf"
 
-const Navigation = ({ active, setActive }) => {
+interface NavigationProps {
+  active: string
+  setActive: Dispatch<SetStateAction<string>>
+}
+
+const Navigation = ({ active, setActive }: NavigationProps) => {
   const handleClick = (e: string | any) => {
     setActive(e.target.innerText)
   }
@@ -9,19 +15,19 @@ const Navigation = ({ active, setActive }) => {
     <NavBox>
       <NavList>
         <Link
-          $active={active === "Reading List" ? "active" : ""}
+          $active={active === ActivePageEnum.to_read ? "active" : ""}
           onClick={handleClick}
         >
           Reading List
         </Link>
         <Link
-          $active={active === "Finished Books" ? "active" : ""}
+          $active={active === ActivePageEnum.finished ? "active" : ""}
           onClick={handleClick}
         >
           Finished Books
         </Link>
         <Link
-          $active={active === "Discover" ? "active" : ""}
+          $active={active === ActivePageEnum.discover ? "active" : ""}
           onClick={handleClick}
         >
           Discover

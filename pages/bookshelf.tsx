@@ -9,9 +9,12 @@ import { UserContext } from "../context/UserContext"
 import { useRouter } from "next/router"
 import { getBooks } from "../api/books"
 import { BooksContext } from "../context/BooksContext"
+import { ActivePageEnum } from "../api/enums"
 
 const Home: NextPage = () => {
-  const [active, setActive] = useState("Reading List")
+  const [active, setActive] = useState<ActivePageEnum | string>(
+    ActivePageEnum.to_read
+  )
   const { user, setUser } = useContext(UserContext)
   const { books, setBooks } = useContext(BooksContext)
   const value = useMemo(() => ({ books, setBooks }), [books, setBooks])
@@ -44,7 +47,7 @@ const Home: NextPage = () => {
       <LogoutBox />
       <Container>
         <Navigation active={active} setActive={setActive} />
-        {active === "Discover" && <Discover />}
+        {active === ActivePageEnum.discover && <Discover />}
       </Container>
     </>
   )
