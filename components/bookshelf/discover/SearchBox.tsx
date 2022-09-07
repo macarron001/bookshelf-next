@@ -12,9 +12,9 @@ import {
   SearchLabel,
 } from "../../styled/bookshelf"
 import Book from "../Book"
-import { BookType } from "../../../api/types"
-import { UserContext } from "./../../../context/UserContext"
-import { getBookList } from "./../../../api/books/booklist"
+import { BookType } from "api/types"
+import { UserContext } from "context/UserContext"
+import { getBookList } from "api/books/booklist"
 
 interface SearchBoxProps {
   setIsSearching: Dispatch<SetStateAction<boolean | null>>

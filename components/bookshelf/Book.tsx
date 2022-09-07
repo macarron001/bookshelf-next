@@ -13,10 +13,10 @@ import {
   SideBar,
   ExtendedSideBar,
 } from "../styled/bookshelf"
-import { BookType } from "../../api/types"
-import { StatusEnum } from "../../api/enums"
-import { addToReadingList } from "../../api/books/addToReadingList"
-import { UserContext } from "./../../context/UserContext"
+import { BookType } from "api/types"
+import { StatusEnum } from "api/enums"
+import { addToReadingList } from "api/books/addToReadingList"
+import { UserContext } from "context/UserContext"
 
 interface BookProps {
   book: BookType

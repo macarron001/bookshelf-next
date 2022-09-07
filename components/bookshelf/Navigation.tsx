@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react"
-import { ActivePageEnum } from "../../api/enums"
+import { ActivePageEnum } from "api/enums"
 import { NavBox, NavList, Link } from "../styled/bookshelf"
 
 interface NavigationProps {

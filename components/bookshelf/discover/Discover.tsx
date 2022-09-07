@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react"
 import SearchBox from "./SearchBox"
 import Header from "./Header"
-import { BookType } from "../../../api/types"
+import { BookType } from "api/types"
 import Book from "../Book"
-import { getDiscover } from "../../../api/books/discover"
-import { UserContext } from "./../../../context/UserContext"
+import { getDiscover } from "api/books/discover"
+import { UserContext } from "context/UserContext"
 
 const Discover = () => {
   const [books, setBooks] = useState<BookType[]>([])

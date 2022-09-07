@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react"
-import { UserContext } from "../../context/UserContext"
+import { UserContext } from "context/UserContext"
 import { LogoutContainer } from "../styled/bookshelf"
 import { useRouter } from "next/router"
 import { Button } from "../styled"
-import { logout } from "../../api/logout"
+import { logout } from "api/logout"
 
 const LogoutBox = () => {
   const context = useContext(UserContext)

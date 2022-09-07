@@ -5,11 +5,11 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react"
-import { UserContext } from "./../../../context/UserContext"
-import { getReadingList } from "../../../api/books/readinglist"
+import { UserContext } from "context/UserContext"
+import { getReadingList } from "api/books/readinglist"
 import Header from "./Header"
 import Book from "../Book"
-import { BookType } from "../../../api/types"
+import { BookType } from "api/types"
 
 interface ReadingListProp {
   setActive: Dispatch<SetStateAction<string>>

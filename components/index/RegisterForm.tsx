@@ -9,10 +9,10 @@ import {
 } from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { register } from "../../api/register"
+import { register } from "api/register"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
-import { UserContext } from "../../context/UserContext"
+import { UserContext } from "context/UserContext"
 
 const RegisterForm = () => {
   const { user, setUser } = useContext(UserContext)
