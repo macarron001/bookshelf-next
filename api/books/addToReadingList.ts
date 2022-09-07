@@ -1,19 +1,17 @@
-import axios from "axios"
+import { baseWithAuth } from "api/base"
 
-export const addToReadingList = async (token: string, id: number) => {
-  return await axios({
-    url: "http://127.0.0.1:3001/api/user_books",
-    method: "POST",
-    data: {
-      user_book: {
-        book_id: id,
-        start_date: new Date().toISOString(),
+export const addToReadingList = async (id: number) => {
+  return await baseWithAuth()
+    .request({
+      url: "/api/user_books",
+      method: "POST",
+      data: {
+        user_book: {
+          book_id: id,
+          start_date: new Date().toISOString(),
+        },
       },
-    },
-    headers: {
-      Authorization: token,
-    },
-  })
+    })
     .then((res) => {
       const books = res.data
       return books

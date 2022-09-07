@@ -1,14 +1,11 @@
-import axios from "axios"
-import { Token } from "../types"
+import { baseWithAuth } from "api/base"
 
-export const getBookList = async ({ token }: Token) => {
-  return await axios({
-    url: "http://127.0.0.1:3001/api/books",
-    method: "GET",
-    headers: {
-      Authorization: token,
-    },
-  })
+export const getBookList = async () => {
+  return await baseWithAuth()
+    .request({
+      url: "/api/books",
+      method: "GET",
+    })
     .then((res) => {
       const books = res.data
       return books
