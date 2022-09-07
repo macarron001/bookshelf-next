@@ -9,13 +9,14 @@ import { UserContext } from "./../../../context/UserContext"
 import { getReadingList } from "../../../api/books/readinglist"
 import Header from "./Header"
 import Book from "../Book"
+import { BookType } from "../../../api/types"
 
 interface ReadingListProp {
   setActive: Dispatch<SetStateAction<string>>
 }
 
 const ReadingList = ({ setActive }: ReadingListProp) => {
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState<BookType[]>([])
   const { user } = useContext(UserContext)
 
   useEffect(() => {

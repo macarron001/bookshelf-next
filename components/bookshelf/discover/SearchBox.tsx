@@ -23,7 +23,7 @@ interface SearchBoxProps {
 const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
   const [filteredData, setFilteredData] = useState()
   const [searchInput, setSearchInput] = useState()
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState<BookType[]>([])
   const { user } = useContext(UserContext)
 
   useEffect(() => {

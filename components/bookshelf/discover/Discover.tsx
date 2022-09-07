@@ -7,7 +7,7 @@ import { getDiscover } from "../../../api/books/discover"
 import { UserContext } from "./../../../context/UserContext"
 
 const Discover = () => {
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState<BookType[]>([])
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const { user } = useContext(UserContext)
 
