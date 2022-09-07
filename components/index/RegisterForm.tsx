@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import {
   AuthenticationForm,
   FormBtnContainer,
@@ -6,13 +6,17 @@ import {
   Label,
   Button,
   Error,
-} from "./styled"
+} from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { register } from "../api/register"
-import { ToastMessage } from "./toast"
+import { register } from "../../api/register"
+import { ToastMessage } from "../toast"
+import { useRouter } from "next/router"
+import { UserContext } from "../../context/UserContext"
 
-const RegisterForm = ({ handleClose }) => {
+const RegisterForm = () => {
+  const { user, setUser } = useContext(UserContext)
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -26,11 +30,12 @@ const RegisterForm = ({ handleClose }) => {
     }),
     onSubmit: async (values) => {
       await register(values).then((res) => {
-        if (res !== 200) {
-          formik.setErrors(res)
-        } else {
+        if (Array.isArray(res)) {
           ToastMessage({ type: "success", message: "Registration Successful" })
-          handleClose()
+          setUser(res[1])
+          router.push("/bookshelf")
+        } else {
+          formik.setErrors(res)
         }
       })
     },

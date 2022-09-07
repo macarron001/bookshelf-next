@@ -5,7 +5,7 @@ import {
   CloseContainer,
   CircleButton,
   FormTitle,
-} from "./styled"
+} from "../styled"
 import LoginForm from "./LoginForm"
 import RegisterForm from "./RegisterForm"
 
@@ -25,11 +25,7 @@ const Modal = ({ modalContent, setIsModalOpen }: ModalProps) => {
           <CircleButton onClick={handleClose}>x</CircleButton>
         </CloseContainer>
         <FormTitle>{modalContent}</FormTitle>
-        {modalContent === "Login" ? (
-          <LoginForm />
-        ) : (
-          <RegisterForm handleClose={handleClose} />
-        )}
+        {modalContent === "Login" ? <LoginForm /> : <RegisterForm />}
       </ModalContent>
     </ModalContainer>
   )

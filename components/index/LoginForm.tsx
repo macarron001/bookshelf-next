@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import {
   AuthenticationForm,
   FormBtnContainer,
@@ -6,13 +6,16 @@ import {
   Label,
   Button,
   Error,
-} from "./styled"
+} from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { login } from "../api/login"
-import { ToastMessage } from "./toast"
+import { login } from "../../api/login"
+import { ToastMessage } from "../toast"
+import { useRouter } from "next/router"
+import { UserContext } from "../../context/UserContext"
 
 const LoginForm = () => {
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -26,14 +29,22 @@ const LoginForm = () => {
     }),
     onSubmit: async (values) => {
       await login(values).then((res) => {
-        if (res !== 200) {
-          ToastMessage({ type: "error", message: res })
+        if (res.id === undefined) {
+          formik.setErrors(res)
+          ToastMessage({ type: "error", message: res.password })
         } else {
-          console.log("Login Success") //redirect to main page
+          setUser(res)
+          router.push("/bookshelf")
         }
       })
     },
   })
+
+  const context = useContext(UserContext)
+  if (!context) {
+    return null
+  }
+  const { setUser } = context
 
   return (
     <AuthenticationForm>
