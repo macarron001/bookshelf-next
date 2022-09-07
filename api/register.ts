@@ -1,4 +1,4 @@
-import axios from "axios"
+import { base } from "./base"
 
 export interface RegisterProps {
   username: string
@@ -6,25 +6,29 @@ export interface RegisterProps {
 }
 
 export const register = async ({ username, password }: RegisterProps) => {
-  return await axios({
-    url: "http://127.0.0.1:3001/signup",
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    data: {
-      user: {
-        username: username,
-        password: password,
+  return await base
+    .request({
+      url: "/signup",
+      method: "POST",
+      data: {
+        user: {
+          username: username,
+          password: password,
+        },
       },
-    },
-  })
+    })
     .then((response) => {
       const user = {
         id: response.data.id,
         username: response.data.username,
-        token: response.headers.authorization,
       }
+      const token = response.headers.authorization
       const res = response.status
-      return [res, user]
+
+      localStorage.setItem("user", JSON.stringify(user))
+      localStorage.setItem("userToken", JSON.stringify(token))
+
+      return res
     })
     .catch((err) => {
       const error = err.response.data.errors
