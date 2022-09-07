@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Dispatch, SetStateAction, useState } from "react"
 import Image from "next/image"
 import {
   BookCard,
@@ -14,20 +14,19 @@ import {
   ExtendedSideBar,
 } from "../styled/bookshelf"
 import { BookInterface } from "../../api/types"
+import { StatusEnum } from "../../api/enums"
 
 interface BookProps {
   book: BookInterface
+  status: string
+  setStatus: Dispatch<SetStateAction<string>>
 }
 
-const Book = ({ book }: BookProps) => {
-  const [isAdding, setIsAdding] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
+const Book = ({ book, status, setStatus }: BookProps) => {
   const addToList = () => {
-    setIsAdding(true)
-    setIsLoading(true)
+    setStatus(StatusEnum.loading)
     setTimeout(() => {
-      setIsLoading(false)
+      setStatus(StatusEnum.reading) //API CALL
     }, 2500)
   }
 
@@ -61,12 +60,12 @@ const Book = ({ book }: BookProps) => {
           <Synopsis>{book.synopsis}</Synopsis>
         </BookContent>
         <SideBar>
-          {!isAdding && !isLoading && (
+          {status === StatusEnum.in_list && (
             <button onClick={addToList}>
               <Image src={"/plus.png"} alt="" width={20} height={20} />
             </button>
           )}
-          {isLoading && (
+          {status === StatusEnum.loading && (
             <Image
               className="bg-transparent opacity-30"
               src={"/spinner.gif"}
@@ -75,7 +74,7 @@ const Book = ({ book }: BookProps) => {
               height={20}
             />
           )}
-          {isAdding && !isLoading && (
+          {status === StatusEnum.reading && (
             <ExtendedSideBar>
               <button onClick={markAsRead}>✅</button>
               <button onClick={removeFromList}>⛔</button>

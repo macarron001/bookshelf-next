@@ -4,8 +4,10 @@ import Header from "./Header"
 import { BookInterface } from "../../../api/types"
 import { BooksContext } from "../../../context/BooksContext"
 import Book from "../Book"
+import { StatusEnum } from "../../../api/enums"
 
 const Discover = () => {
+  const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
   const [isSearching, setIsSearching] = useState<boolean>(false)
 
   const context = useContext(BooksContext)
@@ -23,7 +25,8 @@ const Discover = () => {
         books.map((book: BookInterface) => {
           return (
             <div key={book.id}>
-              <Book book={book} />
+              {/* <Book book={book} setToRead={setToRead} toRead={toRead}/> */}
+              <Book book={book} status={status} setStatus={setStatus} />
             </div>
           )
         })}
