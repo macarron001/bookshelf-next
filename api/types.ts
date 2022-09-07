@@ -1,4 +1,4 @@
-export interface BookInterface {
+export type BookType = {
   id: number
   title: string
   author: string
@@ -7,12 +7,12 @@ export interface BookInterface {
   synopsis: string
 }
 
-export interface UserInterface {
+export type UserType = {
   id: number
   username: string
   auth: string
 }
 
-export interface BooksInterface extends Array<BookInterface> {
-  books: BookInterface[]
+export interface Books extends Array<BookType> {
+  books: BookType[]
 }
