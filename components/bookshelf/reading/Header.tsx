@@ -13,14 +13,10 @@ const Header = ({ setActive }: HeaderProp) => {
     <ReadingHeader>
       <span>
         Hey there! Welcome to your bookshelf reading list. Get started by
-        heading over to
+        heading over to{" "}
       </span>
-      <span> </span>
-      <span>
-        <HeaderLink onClick={handleClick}>the Discover page</HeaderLink>
-      </span>
-      <span> </span>
-      <span>to add books to your list.</span>
+      <HeaderLink onClick={handleClick}>the Discover page</HeaderLink>
+      <span> to add books to your list.</span>
     </ReadingHeader>
   )
 }
