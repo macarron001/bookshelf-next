@@ -9,12 +9,7 @@ export const base = axios.create({
 export const baseWithAuth = () => {
   const token = localStorage.getItem("userToken")
   if (token) {
-    return axios.create({
-      baseURL: base_url,
-      headers: {
-        Authorization: JSON.parse(token),
-      },
-    })
+    base.defaults.headers.common["authorization"] = JSON.parse(token)
   }
   return base
 }
