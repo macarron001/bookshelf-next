@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react"
+import React, { useContext, useState } from "react"
 import Image from "next/image"
 import {
   BookCard,
@@ -15,6 +15,8 @@ import {
 } from "../styled/bookshelf"
 import { BookType } from "../../api/types"
 import { StatusEnum } from "../../api/enums"
+import { toRead } from "./../../api/toRead"
+import { UserContext } from "./../../context/UserContext"
 
 interface BookProps {
   book: BookType
@@ -23,12 +25,14 @@ interface BookProps {
 
 const Book = ({ book, reading = false }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
+  const { user } = useContext(UserContext)
+  const params = { auth: user.auth, id: book.id }
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    setTimeout(() => {
-      setStatus(StatusEnum.reading) //API CALL
-    }, 2500)
+    toRead(params).then(() => {
+      setStatus(StatusEnum.reading)
+    })
   }
 
   const markAsRead = () => {
@@ -61,7 +65,7 @@ const Book = ({ book, reading = false }: BookProps) => {
           <Synopsis>{book.synopsis}</Synopsis>
         </BookContent>
         <SideBar>
-          {status === StatusEnum.in_list && (
+          {status === StatusEnum.in_list && !reading && (
             <button onClick={addToList}>
               <Image src={"/plus.png"} alt="" width={20} height={20} />
             </button>
