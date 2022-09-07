@@ -1,11 +1,11 @@
 import axios from "axios"
 
-interface GetBooksProps {
+interface GetDiscoverProps {
   auth: string
 }
-export const getBooks = async ({ auth }: GetBooksProps) => {
+export const getDiscover = async ({ auth }: GetDiscoverProps) => {
   return await axios({
-    url: "http://127.0.0.1:3001//api/books",
+    url: "http://127.0.0.1:3001//api/discover",
     method: "GET",
     headers: {
       Authorization: auth,
@@ -13,7 +13,6 @@ export const getBooks = async ({ auth }: GetBooksProps) => {
   })
     .then((res) => {
       const books = res.data
-      localStorage.setItem("books", JSON.stringify(books))
       return books
     })
     .catch((error) => {
