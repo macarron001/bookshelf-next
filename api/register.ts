@@ -24,10 +24,6 @@ export const register = async ({ username, password }: RegisterProps) => {
         token: response.headers.authorization,
       }
       const res = response.status
-      const users = JSON.parse(localStorage.getItem("users") || "[]")
-      users.push(user)
-
-      localStorage.setItem("users", JSON.stringify(users))
       return [res, user]
     })
     .catch((err) => {
