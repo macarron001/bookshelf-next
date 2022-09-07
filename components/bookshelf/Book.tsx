@@ -15,7 +15,7 @@ import {
 } from "../styled/bookshelf"
 import { BookType } from "../../api/types"
 import { StatusEnum } from "../../api/enums"
-import { toRead } from "./../../api/toRead"
+import { addToReadingList } from "../../api/books/addToReadingList"
 import { UserContext } from "./../../context/UserContext"
 
 interface BookProps {
@@ -29,7 +29,7 @@ const Book = ({ book, reading = false }: BookProps) => {
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    toRead(user.token, book.id).then(() => {
+    addToReadingList(user.token, book.id).then(() => {
       setStatus(StatusEnum.reading)
     })
   }

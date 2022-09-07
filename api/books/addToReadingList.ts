@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const toRead = async (token: string, id: number) => {
+export const addToReadingList = async (token: string, id: number) => {
   return await axios({
     url: "http://127.0.0.1:3001/api/user_books",
     method: "POST",
