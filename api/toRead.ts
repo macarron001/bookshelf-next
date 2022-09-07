@@ -1,10 +1,6 @@
 import axios from "axios"
 
-interface toReadProps {
-  id: number
-  auth: string
-}
-export const toRead = async ({ auth, id }: toReadProps) => {
+export const toRead = async (token: string, id: number) => {
   return await axios({
     url: "http://127.0.0.1:3001//api/user_books",
     method: "POST",
@@ -15,7 +11,7 @@ export const toRead = async ({ auth, id }: toReadProps) => {
       },
     },
     headers: {
-      Authorization: auth,
+      Authorization: token,
     },
   })
     .then((res) => {

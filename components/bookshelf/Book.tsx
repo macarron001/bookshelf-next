@@ -26,11 +26,10 @@ interface BookProps {
 const Book = ({ book, reading = false }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
   const { user } = useContext(UserContext)
-  const params = { auth: user.auth, id: book.id }
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    toRead(params).then(() => {
+    toRead(user.auth, book.id).then(() => {
       setStatus(StatusEnum.reading)
     })
   }
