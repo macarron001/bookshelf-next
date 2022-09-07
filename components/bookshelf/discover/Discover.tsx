@@ -1,19 +1,17 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import SearchBox from "./SearchBox"
 import Header from "./Header"
 import { BookType } from "api/types"
 import Book from "../Book"
 import { getDiscover } from "api/books/discover"
-import { UserContext } from "context/UserContext"
 
 const Discover = () => {
   const [books, setBooks] = useState<BookType[]>([])
   const [isSearching, setIsSearching] = useState<boolean>(false)
-  const { user } = useContext(UserContext)
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const bookList = await getDiscover(user)
+      const bookList = await getDiscover()
       setBooks(bookList)
     }
 

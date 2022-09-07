@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import { UserContext } from "context/UserContext"
 import { LogoutContainer } from "../styled/bookshelf"
 import { useRouter } from "next/router"
@@ -14,7 +14,7 @@ const LogoutBox = () => {
   const { user, setUser } = context
 
   const handleLogout = async () => {
-    const response = await logout(user)
+    const response = await logout()
     if (response === 200) {
       setUser(null)
       router.push("/")

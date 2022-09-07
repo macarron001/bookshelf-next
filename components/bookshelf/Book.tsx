@@ -16,7 +16,6 @@ import {
 import { BookType } from "api/types"
 import { StatusEnum } from "api/enums"
 import { addToReadingList } from "api/books/addToReadingList"
-import { UserContext } from "context/UserContext"
 
 interface BookProps {
   book: BookType
@@ -25,11 +24,10 @@ interface BookProps {
 
 const Book = ({ book, reading = false }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
-  const { user } = useContext(UserContext)
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    addToReadingList(user.token, book.id).then(() => {
+    addToReadingList(book.id).then(() => {
       setStatus(StatusEnum.reading)
     })
   }

@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-  useContext,
-} from "react"
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react"
 import {
   SearchButton,
   SearchForm,
@@ -13,7 +7,6 @@ import {
 } from "../../styled/bookshelf"
 import Book from "../Book"
 import { BookType } from "api/types"
-import { UserContext } from "context/UserContext"
 import { getBookList } from "api/books/booklist"
 
 interface SearchBoxProps {
@@ -24,11 +17,10 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
   const [filteredData, setFilteredData] = useState()
   const [searchInput, setSearchInput] = useState()
   const [books, setBooks] = useState<BookType[]>([])
-  const { user } = useContext(UserContext)
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const bookList = await getBookList(user)
+      const bookList = await getBookList()
       setBooks(bookList)
     }
 

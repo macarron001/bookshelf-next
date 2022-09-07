@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  Dispatch,
-  SetStateAction,
-} from "react"
-import { UserContext } from "context/UserContext"
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react"
 import { getReadingList } from "api/books/readinglist"
 import Header from "./Header"
 import Book from "../Book"
@@ -17,11 +10,10 @@ interface ReadingListProp {
 
 const ReadingList = ({ setActive }: ReadingListProp) => {
   const [books, setBooks] = useState<BookType[]>([])
-  const { user } = useContext(UserContext)
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const bookList = await getReadingList(user)
+      const bookList = await getReadingList()
       setBooks(bookList)
     }
 
