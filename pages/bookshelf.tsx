@@ -6,7 +6,7 @@ import { useState, useContext, useEffect } from "react"
 import Discover from "../components/bookshelf/discover/Discover"
 import LogoutBox from "../components/bookshelf/LogoutBox"
 import { UserContext } from "../context/UserContext"
-import { getBooks } from "../api/books"
+import { getDiscover } from "../api/books/discover"
 import { BooksContext } from "../context/BooksContext"
 import { ActivePageEnum } from "../api/enums"
 import AuthorizedLayout from "../components/AuthorizedLayout"
@@ -15,19 +15,6 @@ const Home: NextPage = () => {
   const [active, setActive] = useState<ActivePageEnum | string>(
     ActivePageEnum.to_read
   )
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      if (user && !books) {
-        console.log("books fetched")
-        const bookList = await getBooks(user)
-        setBooks(bookList)
-      }
-    }
-
-    fetchBooks().catch(console.error)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const contextUser = useContext(UserContext)
   const contextBooks = useContext(BooksContext)
