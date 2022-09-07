@@ -7,7 +7,7 @@ export interface LoginProps {
 
 export const login = async ({ username, password }: LoginProps) => {
   return await axios({
-    url: "http://127.0.0.1:3001//login",
+    url: "http://127.0.0.1:3001/login",
     method: "POST",
     headers: { "Content-Type": "application/json" },
     data: {

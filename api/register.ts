@@ -7,7 +7,7 @@ export interface RegisterProps {
 
 export const register = async ({ username, password }: RegisterProps) => {
   return await axios({
-    url: "http://127.0.0.1:3001//signup",
+    url: "http://127.0.0.1:3001/signup",
     method: "POST",
     headers: { "Content-Type": "application/json" },
     data: {
