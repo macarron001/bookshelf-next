@@ -1,6 +1,6 @@
 import axios from "axios"
 
-type GetBooksProps = {
+interface GetBooksProps {
   auth: string
 }
 export const getBooks = async ({ auth }: GetBooksProps) => {
