@@ -13,16 +13,17 @@ import {
   SideBar,
   ExtendedSideBar,
 } from "../styled/bookshelf"
-import { BookInterface } from "../../api/types"
+import { BookType } from "../../api/types"
 import { StatusEnum } from "../../api/enums"
 
 interface BookProps {
-  book: BookInterface
-  status: string
-  setStatus: Dispatch<SetStateAction<string>>
+  book: BookType
+  reading?: boolean
 }
 
-const Book = ({ book, status, setStatus }: BookProps) => {
+const Book = ({ book, reading = false }: BookProps) => {
+  const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
+
   const addToList = () => {
     setStatus(StatusEnum.loading)
     setTimeout(() => {
@@ -74,7 +75,7 @@ const Book = ({ book, status, setStatus }: BookProps) => {
               height={20}
             />
           )}
-          {status === StatusEnum.reading && (
+          {(status === StatusEnum.reading || reading) && (
             <ExtendedSideBar>
               <button onClick={markAsRead}>✅</button>
               <button onClick={removeFromList}>⛔</button>
