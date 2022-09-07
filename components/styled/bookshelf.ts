@@ -173,6 +173,17 @@ text-gray-500
   justify-around
 `
 
+const ReadingHeader = tw.div`
+  mt-5
+  text-xl
+`
+
+const HeaderLink = tw.a`
+text-[#3F51B5]
+  mx-1
+  cursor-pointer
+`
+
 export {
   Container,
   LogoutContainer,
@@ -197,4 +208,6 @@ export {
   SearchInput,
   SearchLabel,
   ExtendedSideBar,
+  ReadingHeader,
+  HeaderLink,
 }
