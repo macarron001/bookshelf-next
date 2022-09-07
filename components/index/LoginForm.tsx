@@ -75,7 +75,7 @@ const LoginForm = () => {
         ) : null}
       </FormGroup>
       <FormBtnContainer>
-        <Button $purple={true} onClick={formik.handleSubmit} type="submit">
+        <Button purple={true} onClick={formik.handleSubmit} type="submit">
           Login
         </Button>
       </FormBtnContainer>
