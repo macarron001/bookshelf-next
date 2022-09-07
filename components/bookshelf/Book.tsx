@@ -29,7 +29,7 @@ const Book = ({ book, reading = false }: BookProps) => {
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    toRead(user.auth, book.id).then(() => {
+    toRead(user.token, book.id).then(() => {
       setStatus(StatusEnum.reading)
     })
   }

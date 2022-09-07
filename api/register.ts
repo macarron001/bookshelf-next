@@ -21,7 +21,7 @@ export const register = async ({ username, password }: RegisterProps) => {
       const user = {
         id: response.data.id,
         username: response.data.username,
-        auth: response.headers.authorization,
+        token: response.headers.authorization,
       }
       const res = response.status
       const users = JSON.parse(localStorage.getItem("users") || "[]")

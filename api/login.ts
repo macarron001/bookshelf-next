@@ -21,7 +21,7 @@ export const login = async ({ username, password }: LoginProps) => {
       const user = {
         id: response.data.id,
         username: response.data.username,
-        auth: response.headers.authorization,
+        token: response.headers.authorization,
       }
 
       localStorage.setItem("user", JSON.stringify(user))

@@ -10,7 +10,7 @@ export type BookType = {
 export type UserType = {
   id: number
   username: string
-  auth: string
+  token: string
 }
 
 export type Token = {

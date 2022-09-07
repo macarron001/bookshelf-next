@@ -30,7 +30,7 @@ const ReadingList = ({ setActive }: ReadingListProp) => {
 
   return (
     <>
-      {books.length === 0 && <Header setActive={setActive} />}
+      {books && books.length === 0 && <Header setActive={setActive} />}
       {books &&
         books.map((book) => {
           return (
