@@ -25,7 +25,7 @@ const Discover = () => {
       {!isSearching && <Header />}
       {!isSearching &&
         books &&
-        books.map((book: BookType) => {
+        books.map((book) => {
           return (
             <div key={book.id}>
               {/* <Book book={book} setToRead={setToRead} toRead={toRead}/> */}

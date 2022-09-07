@@ -10,12 +10,17 @@ import { BookType } from "api/types"
 import { getBookList } from "api/books/booklist"
 
 interface SearchBoxProps {
-  setIsSearching: Dispatch<SetStateAction<boolean | null>>
+  setIsSearching: Dispatch<SetStateAction<boolean>>
+}
+
+type SearchInputType = {
+  searchInput?: string
+  setSearchInput: Dispatch<SetStateAction<string | null>>
 }
 
 const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
-  const [filteredData, setFilteredData] = useState()
-  const [searchInput, setSearchInput] = useState()
+  const [filteredData, setFilteredData] = useState<BookType[]>()
+  const [searchInput, setSearchInput] = useState<SearchInputType>()
   const [books, setBooks] = useState<BookType[]>([])
 
   useEffect(() => {
@@ -35,7 +40,7 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const filteredBooks = books.filter((book: BookType) => {
-      return book.title.toLowerCase().includes(searchInput.toLowerCase())
+      return book.title.toLowerCase().includes(searchInput?.toLowerCase())
     })
     setFilteredData(filteredBooks)
     setIsSearching(true)
@@ -54,7 +59,7 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
         </SearchLabel>
       </SearchForm>
       {filteredData &&
-        filteredData.map((data: BookType) => {
+        filteredData.map((data) => {
           return (
             <div key={data.title}>
               <Book book={data} />
