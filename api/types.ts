@@ -13,6 +13,10 @@ export type UserType = {
   auth: string
 }
 
+export type Token = {
+  token: string
+}
+
 export interface Books extends Array<BookType> {
   books: BookType[]
 }

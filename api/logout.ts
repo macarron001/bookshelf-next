@@ -1,15 +1,12 @@
 import axios from "axios"
+import { Token } from "./types"
 
-export interface LogoutProps {
-  auth: string
-}
-
-export const logout = async ({ auth }: LogoutProps) => {
+export const logout = async ({ token }: Token) => {
   return await axios({
     url: "http://127.0.0.1:3001//logout",
     method: "DELETE",
     headers: {
-      Authorization: auth,
+      Authorization: token,
     },
   }).then((res) => {
     localStorage.removeItem("user")

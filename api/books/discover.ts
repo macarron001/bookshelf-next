@@ -1,14 +1,12 @@
 import axios from "axios"
+import { Token } from "../types"
 
-interface GetDiscoverProps {
-  auth: string
-}
-export const getDiscover = async ({ auth }: GetDiscoverProps) => {
+export const getDiscover = async ({ token }: Token) => {
   return await axios({
     url: "http://127.0.0.1:3001//api/discover",
     method: "GET",
     headers: {
-      Authorization: auth,
+      Authorization: token,
     },
   })
     .then((res) => {
