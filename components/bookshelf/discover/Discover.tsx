@@ -28,7 +28,6 @@ const Discover = () => {
         books.map((book) => {
           return (
             <div key={book.id}>
-              {/* <Book book={book} setToRead={setToRead} toRead={toRead}/> */}
               <Book book={book} />
             </div>
           )

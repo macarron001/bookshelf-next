@@ -13,7 +13,6 @@ const LogoutBox = () => {
     const response = await logout()
     if (response === 200) {
       setUser(null)
-      // router.reload()
       router.push("/")
     }
   }

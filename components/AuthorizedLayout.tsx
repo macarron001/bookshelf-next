@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import React, { ReactNode, useEffect, useContext } from "react"
+import React, { ReactNode, useEffect } from "react"
 import { useSession } from "hooks/useSession"
 
 const AuthorizedLayout = ({ children }: { children?: ReactNode }) => {
