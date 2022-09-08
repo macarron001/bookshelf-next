@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import {
   AuthenticationForm,
   FormBtnContainer,
@@ -12,9 +12,10 @@ import * as Yup from "yup"
 import { login } from "api/login"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
-import { UserContext } from "context/UserContext"
+import { useSession } from "hooks/useSession"
 
 const LoginForm = () => {
+  const { setUser } = useSession()
   const router = useRouter()
   const formik = useFormik({
     initialValues: {
@@ -39,12 +40,6 @@ const LoginForm = () => {
       })
     },
   })
-
-  const context = useContext(UserContext)
-  if (!context) {
-    return null
-  }
-  const { setUser } = context
 
   return (
     <AuthenticationForm>
