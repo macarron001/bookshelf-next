@@ -39,8 +39,8 @@ const NavList = tw.ul`
 `
 
 const Link = tw.a`
-${(p) => (p.$active ? "bg-[#F1F1F4]" : "")}
-${(p) => (p.$active ? "border-[#3F51B5]" : "border-transparent")}
+${(p) => (p.active ? "bg-[#F1F1F4]" : "")}
+${(p) => (p.active ? "border-[#3F51B5]" : "border-transparent")}
 
   block
   py-2
@@ -53,8 +53,8 @@ ${(p) => (p.$active ? "border-[#3F51B5]" : "border-transparent")}
   rounded-sm
   border-l-[5px]
   border-solid
-  cursor-pointer
   hover:text-[#3F51B5]
+  cursor-pointer
 `
 
 const HeaderBox = tw.div`
@@ -90,7 +90,7 @@ const BookImage = tw.div`
 `
 
 const BookContent = tw.div`
-w-[563px]
+  w-[563px]
 `
 
 const HeaderBar = tw.div`
@@ -166,11 +166,22 @@ const SearchButton = tw.button`
 
 const ExtendedSideBar = tw.div`
   right-20
-text-gray-500
+  text-gray-500
   h-full
   flex
   flex-col
   justify-around
+`
+
+const ReadingHeader = tw.div`
+  mt-5
+  text-xl
+`
+
+const HeaderLink = tw.a`
+  mx-1
+  text-[#3F51B5]
+  cursor-pointer
 `
 
 export {
@@ -197,4 +208,6 @@ export {
   SearchInput,
   SearchLabel,
   ExtendedSideBar,
+  ReadingHeader,
+  HeaderLink,
 }

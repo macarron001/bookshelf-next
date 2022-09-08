@@ -1,20 +1,23 @@
-import React, { useContext, useState } from "react"
+import React, { useState, useEffect } from "react"
 import SearchBox from "./SearchBox"
 import Header from "./Header"
-import { BookInterface } from "../../../api/types"
-import { BooksContext } from "../../../context/BooksContext"
+import { BookType } from "api/types"
 import Book from "../Book"
-import { StatusEnum } from "../../../api/enums"
+import { getDiscover } from "api/books/discover"
 
 const Discover = () => {
-  const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
+  const [books, setBooks] = useState<BookType[]>([])
   const [isSearching, setIsSearching] = useState<boolean>(false)
 
-  const context = useContext(BooksContext)
-  if (!context) {
-    return null
-  }
-  const { books } = context
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const bookList = await getDiscover()
+      setBooks(bookList)
+    }
+
+    fetchBooks().catch(console.error)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -22,11 +25,10 @@ const Discover = () => {
       {!isSearching && <Header />}
       {!isSearching &&
         books &&
-        books.map((book: BookInterface) => {
+        books.map((book) => {
           return (
             <div key={book.id}>
-              {/* <Book book={book} setToRead={setToRead} toRead={toRead}/> */}
-              <Book book={book} status={status} setStatus={setStatus} />
+              <Book book={book} />
             </div>
           )
         })}

@@ -1,20 +1,16 @@
-import React, { useState, useContext } from "react"
-import { UserContext } from "../../context/UserContext"
+import React from "react"
 import { LogoutContainer } from "../styled/bookshelf"
 import { useRouter } from "next/router"
 import { Button } from "../styled"
-import { logout } from "../../api/logout"
+import { logout } from "api/logout"
+import { useSession } from "hooks/useSession"
 
 const LogoutBox = () => {
-  const context = useContext(UserContext)
+  const { user, setUser } = useSession()
   const router = useRouter()
-  if (!context) {
-    return null
-  }
-  const { user, setUser } = context
 
   const handleLogout = async () => {
-    const response = await logout(user)
+    const response = await logout()
     if (response === 200) {
       setUser(null)
       router.push("/")

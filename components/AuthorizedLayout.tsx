@@ -1,10 +1,10 @@
 import { useRouter } from "next/router"
-import React, { ReactNode, useEffect, useContext } from "react"
-import { UserContext } from "../context/UserContext"
+import React, { ReactNode, useEffect } from "react"
+import { useSession } from "hooks/useSession"
 
 const AuthorizedLayout = ({ children }: { children?: ReactNode }) => {
   const router = useRouter()
-  const { setUser } = useContext(UserContext)
+  const { setUser } = useSession()
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") as string)

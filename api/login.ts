@@ -1,4 +1,4 @@
-import axios from "axios"
+import { base } from "./base"
 
 export interface LoginProps {
   username: string
@@ -6,25 +6,26 @@ export interface LoginProps {
 }
 
 export const login = async ({ username, password }: LoginProps) => {
-  return await axios({
-    url: "http://127.0.0.1:3001//login",
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    data: {
-      user: {
-        username: username,
-        password: password,
+  return await base
+    .request({
+      url: "/login",
+      method: "POST",
+      data: {
+        user: {
+          username: username,
+          password: password,
+        },
       },
-    },
-  })
+    })
     .then((response) => {
       const user = {
         id: response.data.id,
         username: response.data.username,
-        auth: response.headers.authorization,
       }
+      const token = response.headers.authorization
 
       localStorage.setItem("user", JSON.stringify(user))
+      localStorage.setItem("userToken", JSON.stringify(token))
       return user
     })
     .catch((err) => {

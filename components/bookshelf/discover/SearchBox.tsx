@@ -1,26 +1,37 @@
-import React, { useState, useContext, Dispatch, SetStateAction } from "react"
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react"
 import {
   SearchButton,
   SearchForm,
   SearchInput,
   SearchLabel,
 } from "../../styled/bookshelf"
-import { BooksContext } from "./../../../context/BooksContext"
 import Book from "../Book"
-import { BookInterface } from "../../../api/types"
+import { BookType } from "api/types"
+import { getBookList } from "api/books/booklist"
 
 interface SearchBoxProps {
-  setIsSearching: Dispatch<SetStateAction<boolean | null>>
+  setIsSearching: Dispatch<SetStateAction<boolean>>
+}
+
+type SearchInputType = {
+  searchInput?: string
+  setSearchInput: Dispatch<SetStateAction<string | null>>
 }
 
 const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
-  const [filteredData, setFilteredData] = useState()
-  const [searchInput, setSearchInput] = useState()
-  const context = useContext(BooksContext)
-  if (!context) {
-    return null
-  }
-  const { books } = context
+  const [filteredData, setFilteredData] = useState<BookType[]>()
+  const [searchInput, setSearchInput] = useState<SearchInputType>()
+  const [books, setBooks] = useState<BookType[]>([])
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const bookList = await getBookList()
+      setBooks(bookList)
+    }
+
+    fetchBooks().catch(console.error)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleChange = (e) => {
     setSearchInput(e.target.value)
@@ -28,8 +39,8 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const filteredBooks = books.filter((book) => {
-      return book.title.toLowerCase().includes(searchInput.toLowerCase())
+    const filteredBooks = books.filter((book: BookType) => {
+      return book.title.toLowerCase().includes(searchInput?.toLowerCase())
     })
     setFilteredData(filteredBooks)
     setIsSearching(true)
@@ -48,7 +59,7 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
         </SearchLabel>
       </SearchForm>
       {filteredData &&
-        filteredData.map((data: BookInterface) => {
+        filteredData.map((data) => {
           return (
             <div key={data.title}>
               <Book book={data} />

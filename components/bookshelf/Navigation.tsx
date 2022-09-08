@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useState } from "react"
-import { ActivePageEnum } from "../../api/enums"
+import React, { Dispatch, SetStateAction } from "react"
+import { ActivePageEnum } from "api/enums"
 import { NavBox, NavList, Link } from "../styled/bookshelf"
 
 interface NavigationProps {
@@ -15,19 +15,19 @@ const Navigation = ({ active, setActive }: NavigationProps) => {
     <NavBox>
       <NavList>
         <Link
-          $active={active === ActivePageEnum.to_read ? "active" : ""}
+          active={active === ActivePageEnum.to_read ? "active" : ""}
           onClick={handleClick}
         >
           Reading List
         </Link>
         <Link
-          $active={active === ActivePageEnum.finished ? "active" : ""}
+          active={active === ActivePageEnum.finished ? "active" : ""}
           onClick={handleClick}
         >
           Finished Books
         </Link>
         <Link
-          $active={active === ActivePageEnum.discover ? "active" : ""}
+          active={active === ActivePageEnum.discover ? "active" : ""}
           onClick={handleClick}
         >
           Discover

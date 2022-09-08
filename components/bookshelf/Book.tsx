@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react"
+import React, { useState } from "react"
 import Image from "next/image"
 import {
   BookCard,
@@ -13,21 +13,23 @@ import {
   SideBar,
   ExtendedSideBar,
 } from "../styled/bookshelf"
-import { BookInterface } from "../../api/types"
-import { StatusEnum } from "../../api/enums"
+import { BookType } from "api/types"
+import { StatusEnum } from "api/enums"
+import { addToReadingList } from "api/books/addToReadingList"
 
 interface BookProps {
-  book: BookInterface
-  status: string
-  setStatus: Dispatch<SetStateAction<string>>
+  book: BookType
+  reading?: boolean
 }
 
-const Book = ({ book, status, setStatus }: BookProps) => {
+const Book = ({ book, reading = false }: BookProps) => {
+  const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
+
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    setTimeout(() => {
-      setStatus(StatusEnum.reading) //API CALL
-    }, 2500)
+    addToReadingList(book.id).then(() => {
+      setStatus(StatusEnum.reading)
+    })
   }
 
   const markAsRead = () => {
@@ -60,7 +62,7 @@ const Book = ({ book, status, setStatus }: BookProps) => {
           <Synopsis>{book.synopsis}</Synopsis>
         </BookContent>
         <SideBar>
-          {status === StatusEnum.in_list && (
+          {status === StatusEnum.in_list && !reading && (
             <button onClick={addToList}>
               <Image src={"/plus.png"} alt="" width={20} height={20} />
             </button>
@@ -74,7 +76,7 @@ const Book = ({ book, status, setStatus }: BookProps) => {
               height={20}
             />
           )}
-          {status === StatusEnum.reading && (
+          {(status === StatusEnum.reading || reading) && (
             <ExtendedSideBar>
               <button onClick={markAsRead}>✅</button>
               <button onClick={removeFromList}>⛔</button>
