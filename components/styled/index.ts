@@ -1,8 +1,8 @@
 import tw from "tailwind-styled-components"
 
 const Button = tw.div`
-  ${(p) => (p.purple ? "bg-[#3F51B5]" : "bg-[#F1F2F7]")} 
-  ${(p) => (p.purple ? "text-white" : "text-black")} 
+  ${(p: { purple: boolean }) => (p.purple ? "bg-[#3F51B5]" : "bg-[#F1F2F7]")} 
+  ${(p: { purple: boolean }) => (p.purple ? "text-white" : "text-black")} 
 
   py-2.5
   px-[15px]

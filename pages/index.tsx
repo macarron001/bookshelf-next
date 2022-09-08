@@ -30,7 +30,7 @@ const Home: NextPage = () => {
         <Image src={"/books.png"} alt="books" width={80} height={80} />
         <Title>Bookshelf</Title>
         <ButtonContainer>
-          <Button purple={true} onClick={handleLogin}>
+          <Button purple onClick={handleLogin}>
             Login
           </Button>
           <Button onClick={handleRegister}>Register</Button>
