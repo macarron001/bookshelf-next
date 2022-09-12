@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import SearchBox from "./SearchBox"
-import Header from "./Header"
 import { BookType } from "api/types"
 import Book from "../Book"
 import { getDiscover } from "api/books/discover"
+import Header from "../Header"
 
 const Discover = () => {
   const [books, setBooks] = useState<BookType[]>([])
@@ -22,7 +22,7 @@ const Discover = () => {
   return (
     <>
       <SearchBox setIsSearching={setIsSearching} />
-      {!isSearching && <Header />}
+      {!isSearching && <Header list_type="discover" />}
       {!isSearching &&
         books &&
         books.map((book) => {

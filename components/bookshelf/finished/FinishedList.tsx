@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react"
-import Header from "./Header"
 import Book from "../Book"
 import { BookType } from "api/types"
 import { getFinishedList } from "api/books/finishedlist"
+import Header from "../Header"
 
 interface ReadingListProp {
   setActive: Dispatch<SetStateAction<string>>
@@ -23,7 +23,9 @@ const FinishedList = ({ setActive }: ReadingListProp) => {
 
   return (
     <>
-      {books && books.length === 0 && <Header setActive={setActive} />}
+      {books && books.length === 0 && (
+        <Header setActive={setActive} list_type={"finished"} />
+      )}
       {books &&
         books.map((book) => {
           return (
