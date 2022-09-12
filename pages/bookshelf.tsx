@@ -8,6 +8,7 @@ import LogoutBox from "../components/bookshelf/LogoutBox"
 import { ActivePageEnum } from "../api/enums"
 import AuthorizedLayout from "../components/AuthorizedLayout"
 import ReadingList from "../components/bookshelf/reading/ReadingList"
+import FinishedList from "./../components/bookshelf/finished/FinishedList"
 
 const Home: NextPage = () => {
   const [active, setActive] = useState<ActivePageEnum | string>(
@@ -23,6 +24,9 @@ const Home: NextPage = () => {
           {active === ActivePageEnum.discover && <Discover />}
           {active === ActivePageEnum.to_read && (
             <ReadingList setActive={setActive} />
+          )}
+          {active === ActivePageEnum.finished && (
+            <FinishedList setActive={setActive} />
           )}
         </Container>
       </AuthorizedLayout>
