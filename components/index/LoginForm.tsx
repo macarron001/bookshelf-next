@@ -9,7 +9,7 @@ import {
 } from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { login } from "api/login"
+import { login } from "api/session/login"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
 import { useSession } from "hooks/useSession"
@@ -30,7 +30,7 @@ const LoginForm = () => {
     }),
     onSubmit: async (values) => {
       await login(values).then((res) => {
-        if (res.id === undefined) {
+        if (res.password) {
           formik.setErrors(res)
           ToastMessage({ type: "error", message: res.password })
         } else {
