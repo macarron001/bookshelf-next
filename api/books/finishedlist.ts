@@ -1,6 +1,7 @@
 import { baseWithAuth } from "api/base"
+import { BookType } from "api/types"
 
-export const getFinishedList = async () => {
+export const getFinishedList = async (): Promise<BookType[]> => {
   return await baseWithAuth()
     .request({
       url: "/api/user_books",
