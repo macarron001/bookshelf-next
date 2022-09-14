@@ -16,6 +16,7 @@ import {
 import { BookType } from "api/types"
 import { StatusEnum } from "api/enums"
 import { addToReadingList } from "api/books/addToReadingList"
+import { markAsRead } from "api/books/markAsRead"
 
 interface BookProps {
   book: BookType
@@ -27,13 +28,13 @@ const Book = ({ book, reading = false }: BookProps) => {
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    addToReadingList(book.id).then(() => {
+    addToReadingList(book.book_id).then(() => {
       setStatus(StatusEnum.reading)
     })
   }
 
-  const markAsRead = () => {
-    console.log("to read")
+  const markBook = () => {
+    markAsRead(book.id)
   }
 
   const removeFromList = () => {
@@ -78,7 +79,7 @@ const Book = ({ book, reading = false }: BookProps) => {
           )}
           {(status === StatusEnum.reading || reading) && (
             <ExtendedSideBar>
-              <button onClick={markAsRead}>✅</button>
+              <button onClick={markBook}>✅</button>
               <button onClick={removeFromList}>⛔</button>
             </ExtendedSideBar>
           )}
