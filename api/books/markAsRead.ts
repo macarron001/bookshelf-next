@@ -14,7 +14,6 @@ export const markAsRead = async (id: number): Promise<BookType> => {
     })
     .then((res) => {
       const book = res.data
-      console.log(res)
       return book
     })
     .catch((error) => {
