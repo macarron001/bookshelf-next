@@ -1,14 +1,14 @@
-import { base } from "./base"
+import { base } from "api/base"
 
-export interface RegisterProps {
+export interface LoginProps {
   username: string
   password: string
 }
 
-export const register = async ({ username, password }: RegisterProps) => {
+export const login = async ({ username, password }: LoginProps) => {
   return await base
     .request({
-      url: "/signup",
+      url: "/login",
       method: "POST",
       data: {
         user: {
@@ -23,15 +23,16 @@ export const register = async ({ username, password }: RegisterProps) => {
         username: response.data.username,
       }
       const token = response.headers.authorization
-      const res = response.status
 
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("userToken", JSON.stringify(token))
-
-      return res
+      return user
     })
     .catch((err) => {
-      const error = err.response.data.errors
+      const error = {
+        password: err.response.data, // formik only accepts username || password as error
+      }
+
       return error
     })
 }

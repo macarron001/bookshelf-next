@@ -2,7 +2,7 @@ import React from "react"
 import { LogoutContainer } from "../styled/bookshelf"
 import { useRouter } from "next/router"
 import { Button } from "../styled"
-import { logout } from "api/logout"
+import { logout } from "api/session/logout"
 import { useSession } from "hooks/useSession"
 
 const LogoutBox = () => {

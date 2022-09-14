@@ -1,6 +1,7 @@
 import { baseWithAuth } from "api/base"
+import { BookType } from "api/types"
 
-export const getReadingList = async () => {
+export const getReadingList = async (): Promise<BookType[]> => {
   return await baseWithAuth()
     .request({
       url: "/api/user_books",
@@ -8,6 +9,7 @@ export const getReadingList = async () => {
     })
     .then((res) => {
       const books = res.data
+      console.log(res)
       return books
     })
     .catch((error) => {

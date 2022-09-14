@@ -1,19 +1,19 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react"
-import { getReadingList } from "api/books/readinglist"
 import Book from "../Book"
 import { BookType } from "api/types"
+import { getFinishedList } from "api/books/finishedlist"
 import Header from "../Header"
 
 interface ReadingListProp {
   setActive: Dispatch<SetStateAction<string>>
 }
 
-const ReadingList = ({ setActive }: ReadingListProp) => {
+const FinishedList = ({ setActive }: ReadingListProp) => {
   const [books, setBooks] = useState<BookType[]>([])
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const bookList = await getReadingList()
+      const bookList = await getFinishedList()
       setBooks(bookList)
     }
 
@@ -24,7 +24,7 @@ const ReadingList = ({ setActive }: ReadingListProp) => {
   return (
     <>
       {books && books.length === 0 && (
-        <Header setActive={setActive} list_type={"reading"} />
+        <Header setActive={setActive} list_type={"finished"} />
       )}
       {books &&
         books.map((book) => {
@@ -38,4 +38,4 @@ const ReadingList = ({ setActive }: ReadingListProp) => {
   )
 }
 
-export default ReadingList
+export default FinishedList

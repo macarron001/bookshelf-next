@@ -1,6 +1,6 @@
-import { baseWithAuth } from "./base"
+import { baseWithAuth } from "../base"
 
-export const logout = async () => {
+export const logout = async (): Promise<number> => {
   return await baseWithAuth()
     .request({
       url: "/logout",
