@@ -27,7 +27,7 @@ const Discover = () => {
         books &&
         books.map((book) => {
           return (
-            <div key={book.id}>
+            <div key={book.book_id}>
               <Book book={book} />
             </div>
           )

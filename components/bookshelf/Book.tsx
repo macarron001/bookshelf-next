@@ -35,11 +35,11 @@ const Book = ({ book, reading = false }: BookProps) => {
   }
 
   const markBook = () => {
-    markAsRead(book.id)
+    markAsRead(book.user_book_id)
   }
 
   const removeBook = () => {
-    removeFromList(book.id)
+    removeFromList(book.user_book_id)
   }
 
   return (
