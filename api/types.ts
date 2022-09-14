@@ -5,6 +5,11 @@ export type BookType = {
   cover_image_url: string
   publisher: string
   synopsis: string
+  rating: number
+  start_date: string
+  finish_date: string
+  book_id: number
+  notes: string
 }
 
 export type UserType = {
