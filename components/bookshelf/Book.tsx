@@ -19,6 +19,7 @@ import { addToReadingList } from "api/books/addToReadingList"
 import { markAsRead } from "api/books/markAsRead"
 import { removeFromList } from "api/books/removeFromList"
 import Rating from "@mui/material/Rating"
+import { setRating } from "api/books/setRating"
 
 interface BookProps {
   book: BookType
@@ -27,7 +28,7 @@ interface BookProps {
 
 const Book = ({ book, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
-  const [value, setValue] = useState(0)
+  const [currentRating, setCurrentRating] = useState<number | null>(0)
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
@@ -46,6 +47,11 @@ const Book = ({ book, section = "discover" }: BookProps) => {
 
   const unmarkBook = () => {
     console.log("book unmarked")
+  }
+
+  const rateBook = (_event, newRating: number | null) => {
+    setCurrentRating(newRating)
+    setRating(book.user_book_id, newRating)
   }
 
   return (
@@ -67,10 +73,8 @@ const Book = ({ book, section = "discover" }: BookProps) => {
                 <Rating
                   name="simple-controlled"
                   size="small"
-                  value={value}
-                  onChange={(event, newValue) => {
-                    setValue(newValue)
-                  }}
+                  value={currentRating}
+                  onChange={rateBook}
                 />
               </>
             )}
