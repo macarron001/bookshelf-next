@@ -2,15 +2,14 @@ import { baseWithAuth } from "api/base"
 import { BookType } from "api/types"
 import { errorHandler } from "api/utils"
 
-export const addToReadingList = async (id: number): Promise<BookType> => {
+export const markAsRead = async (id: number): Promise<BookType> => {
   return await baseWithAuth()
     .request({
-      url: "/api/user_books",
-      method: "POST",
+      url: `/api/user_books/${id}`,
+      method: "PATCH",
       data: {
         user_book: {
-          book_id: id,
-          start_date: new Date().toISOString(),
+          finish_date: new Date().toISOString(),
         },
       },
     })
