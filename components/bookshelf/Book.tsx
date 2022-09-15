@@ -18,6 +18,7 @@ import { StatusEnum } from "api/enums"
 import { addToReadingList } from "api/books/addToReadingList"
 import { markAsRead } from "api/books/markAsRead"
 import { removeFromList } from "api/books/removeFromList"
+import Rating from "@mui/material/Rating"
 
 interface BookProps {
   book: BookType
@@ -26,6 +27,7 @@ interface BookProps {
 
 const Book = ({ book, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
+  const [value, setValue] = useState(0)
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
@@ -60,6 +62,18 @@ const Book = ({ book, section = "discover" }: BookProps) => {
         <BookContent>
           <HeaderBar>
             <Title>{book.title}</Title>
+            {(status === StatusEnum.reading || section === "finished") && (
+              <>
+                <Rating
+                  name="simple-controlled"
+                  size="small"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue)
+                  }}
+                />
+              </>
+            )}
             <InfoBox>
               <Author>{book.author}</Author>
               <Publisher>{book.publisher}</Publisher>
