@@ -6,23 +6,23 @@ export interface genericError {
 }
 
 export const errorHandler = (error: genericError) => {
+  let error_message = "error message" //placeholder for TS
   switch (error.request.status) {
     case 0:
-      ToastMessage({
-        type: "error",
-        message: "Network error - is the server running?",
-      })
+      error_message = "Network error - is the server running?"
       break
     case 500:
-      ToastMessage({
-        type: "error",
-        message: "Request failed - check the server",
-      })
+      error_message = "Request failed - check the server"
       break
     case 404:
-      ToastMessage({
-        type: "error",
-        message: "Data not found - check request parameters",
-      })
+      error_message = "Data not found - check request parameters"
+      break
+    default:
+      error_message = error.message
   }
+
+  ToastMessage({
+    type: "error",
+    message: error_message,
+  })
 }
