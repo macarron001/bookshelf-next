@@ -1,5 +1,6 @@
 import { baseWithAuth } from "api/base"
 import { BookType } from "api/types"
+import { errorHandler } from "api/utils"
 
 export const getDiscover = async (): Promise<BookType[]> => {
   return await baseWithAuth()
@@ -12,6 +13,6 @@ export const getDiscover = async (): Promise<BookType[]> => {
       return books
     })
     .catch((error) => {
-      console.log(error)
+      errorHandler(error)
     })
 }
