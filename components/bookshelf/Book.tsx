@@ -101,15 +101,15 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
               height={20}
             />
           )}
-          {(status === StatusEnum.reading || section === "reading") && (
+          {(status === StatusEnum.reading ||
+            section === "reading" ||
+            "finished") && (
             <ExtendedSideBar>
-              <button onClick={markBook}>✅</button>
-              <button onClick={removeBook}>⛔</button>
-            </ExtendedSideBar>
-          )}
-          {(status === StatusEnum.reading || section === "finished") && (
-            <ExtendedSideBar>
-              <button onClick={unmarkBook}>📘</button>
+              {section === "finished" ? (
+                <button onClick={unmarkBook}>📘</button>
+              ) : (
+                <button onClick={markBook}>✅</button>
+              )}
               <button onClick={removeBook}>⛔</button>
             </ExtendedSideBar>
           )}
