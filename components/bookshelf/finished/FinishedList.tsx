@@ -30,7 +30,7 @@ const FinishedList = ({ setActive }: ReadingListProp) => {
         books.map((book) => {
           return (
             <div key={book.title}>
-              <Book book={book} reading={true} />
+              <Book book={book} section={"finished"} />
             </div>
           )
         })}

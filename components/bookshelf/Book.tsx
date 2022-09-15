@@ -21,10 +21,10 @@ import { removeFromList } from "api/books/removeFromList"
 
 interface BookProps {
   book: BookType
-  reading?: boolean
+  section?: "reading" | "finished" | "discover"
 }
 
-const Book = ({ book, reading = false }: BookProps) => {
+const Book = ({ book, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
 
   const addToList = () => {
@@ -40,6 +40,10 @@ const Book = ({ book, reading = false }: BookProps) => {
 
   const removeBook = () => {
     removeFromList(book.user_book_id)
+  }
+
+  const unmarkBook = () => {
+    console.log("book unmarked")
   }
 
   return (
@@ -64,7 +68,7 @@ const Book = ({ book, reading = false }: BookProps) => {
           <Synopsis>{book.synopsis}</Synopsis>
         </BookContent>
         <SideBar>
-          {status === StatusEnum.in_list && !reading && (
+          {status === StatusEnum.in_list && section === "discover" && (
             <button onClick={addToList}>
               <Image src={"/plus.png"} alt="" width={20} height={20} />
             </button>
@@ -78,9 +82,15 @@ const Book = ({ book, reading = false }: BookProps) => {
               height={20}
             />
           )}
-          {(status === StatusEnum.reading || reading) && (
+          {(status === StatusEnum.reading || section === "reading") && (
             <ExtendedSideBar>
               <button onClick={markBook}>✅</button>
+              <button onClick={removeBook}>⛔</button>
+            </ExtendedSideBar>
+          )}
+          {(status === StatusEnum.reading || section === "finished") && (
+            <ExtendedSideBar>
+              <button onClick={unmarkBook}>📘</button>
               <button onClick={removeBook}>⛔</button>
             </ExtendedSideBar>
           )}
