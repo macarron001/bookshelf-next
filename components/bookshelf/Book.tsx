@@ -24,11 +24,12 @@ import { setRating } from "api/books/setRating"
 interface BookProps {
   book: BookType
   section?: "reading" | "finished" | "discover"
+  rating?: number | null
 }
 
-const Book = ({ book, section = "discover" }: BookProps) => {
+const Book = ({ book, rating, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
-  const [currentRating, setCurrentRating] = useState<number | null>(0)
+  const [currentRating, setCurrentRating] = useState<number | null>(rating)
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
