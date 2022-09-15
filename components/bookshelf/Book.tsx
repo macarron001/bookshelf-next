@@ -18,14 +18,19 @@ import { StatusEnum } from "api/enums"
 import { addToReadingList } from "api/books/addToReadingList"
 import { markAsRead } from "api/books/markAsRead"
 import { removeFromList } from "api/books/removeFromList"
+import Rating from "@mui/material/Rating"
+import { setRating } from "api/books/setRating"
 
 interface BookProps {
   book: BookType
-  reading?: boolean
+  section?: "reading" | "finished" | "discover"
+  rating?: number | null
 }
 
-const Book = ({ book, reading = false }: BookProps) => {
+const Book = ({ book, rating, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
+  const [currentRating, setCurrentRating] = useState<number | null>(rating)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
@@ -42,6 +47,18 @@ const Book = ({ book, reading = false }: BookProps) => {
     removeFromList(book.user_book_id)
   }
 
+  const unmarkBook = () => {
+    console.log("book unmarked")
+  }
+
+  const rateBook = (_event, newRating: number | null) => {
+    setCurrentRating(newRating)
+    setIsLoading(true)
+    setRating(book.user_book_id, newRating).then(() => {
+      setIsLoading(false)
+    })
+  }
+
   return (
     <>
       <BookCard>
@@ -56,6 +73,17 @@ const Book = ({ book, reading = false }: BookProps) => {
         <BookContent>
           <HeaderBar>
             <Title>{book.title}</Title>
+            {(status === StatusEnum.reading || section === "finished") && (
+              <>
+                <Rating
+                  name="simple-controlled"
+                  size="small"
+                  value={currentRating}
+                  onChange={rateBook}
+                  disabled={isLoading ? true : false}
+                />
+              </>
+            )}
             <InfoBox>
               <Author>{book.author}</Author>
               <Publisher>{book.publisher}</Publisher>
@@ -64,7 +92,7 @@ const Book = ({ book, reading = false }: BookProps) => {
           <Synopsis>{book.synopsis}</Synopsis>
         </BookContent>
         <SideBar>
-          {status === StatusEnum.in_list && !reading && (
+          {status === StatusEnum.in_list && section === "discover" && (
             <button onClick={addToList}>
               <Image src={"/plus.png"} alt="" width={20} height={20} />
             </button>
@@ -78,9 +106,15 @@ const Book = ({ book, reading = false }: BookProps) => {
               height={20}
             />
           )}
-          {(status === StatusEnum.reading || reading) && (
+          {(status === StatusEnum.reading ||
+            section === "reading" ||
+            "finished") && (
             <ExtendedSideBar>
-              <button onClick={markBook}>✅</button>
+              {section === "finished" ? (
+                <button onClick={unmarkBook}>📘</button>
+              ) : (
+                <button onClick={markBook}>✅</button>
+              )}
               <button onClick={removeBook}>⛔</button>
             </ExtendedSideBar>
           )}
