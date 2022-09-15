@@ -30,6 +30,7 @@ interface BookProps {
 const Book = ({ book, rating, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
   const [currentRating, setCurrentRating] = useState<number | null>(rating)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
@@ -52,7 +53,10 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
 
   const rateBook = (_event, newRating: number | null) => {
     setCurrentRating(newRating)
-    setRating(book.user_book_id, newRating)
+    setIsLoading(true)
+    setRating(book.user_book_id, newRating).then(() => {
+      setIsLoading(false)
+    })
   }
 
   return (
@@ -76,6 +80,7 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
                   size="small"
                   value={currentRating}
                   onChange={rateBook}
+                  disabled={isLoading ? true : false}
                 />
               </>
             )}
