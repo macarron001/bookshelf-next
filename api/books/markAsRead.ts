@@ -1,5 +1,6 @@
 import { baseWithAuth } from "api/base"
 import { BookType } from "api/types"
+import { errorHandler } from "api/utils"
 
 export const markAsRead = async (id: number): Promise<BookType> => {
   return await baseWithAuth()
@@ -17,6 +18,6 @@ export const markAsRead = async (id: number): Promise<BookType> => {
       return book
     })
     .catch((error) => {
-      console.log(error)
+      errorHandler(error)
     })
 }

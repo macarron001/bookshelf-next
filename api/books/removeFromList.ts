@@ -1,5 +1,6 @@
 import { baseWithAuth } from "api/base"
 import { BookType } from "api/types"
+import { errorHandler } from "api/utils"
 
 export const removeFromList = async (id: number): Promise<BookType> => {
   return await baseWithAuth()
@@ -9,10 +10,9 @@ export const removeFromList = async (id: number): Promise<BookType> => {
     })
     .then((res) => {
       const book = res.data
-      console.log(res)
       return book
     })
     .catch((error) => {
-      console.log(error)
+      errorHandler(error)
     })
 }
