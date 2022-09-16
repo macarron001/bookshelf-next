@@ -11,6 +11,10 @@ import {
   Title,
   Synopsis,
   SideBar,
+  BookContainer,
+  TitleBar,
+  RatingContainer,
+  SideButton,
 } from "../styled/bookshelf"
 import { BookType } from "api/types"
 import { StatusEnum } from "api/enums"
@@ -46,7 +50,7 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
   }
 
   return (
-    <>
+    <BookContainer>
       <BookCard>
         <BookImage>
           <Image
@@ -58,16 +62,20 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
         </BookImage>
         <BookContent>
           <HeaderBar>
-            <Title>{book.title}</Title>
-            {(status === StatusEnum.reading || section === "finished") && (
-              <Rating
-                name="simple-controlled"
-                size="small"
-                value={currentRating}
-                onChange={rateBook}
-                disabled={isLoading ? true : false}
-              />
-            )}
+            <TitleBar>
+              <Title>{book.title}</Title>
+              {(status === StatusEnum.reading || section === "finished") && (
+                <RatingContainer>
+                  <Rating
+                    name="simple-controlled"
+                    size="small"
+                    value={currentRating}
+                    onChange={rateBook}
+                    disabled={isLoading ? true : false}
+                  />
+                </RatingContainer>
+              )}
+            </TitleBar>
             <InfoBox>
               <Author>{book.author}</Author>
               <Publisher>{book.publisher}</Publisher>
@@ -75,13 +83,15 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
           </HeaderBar>
           <Synopsis>{book.synopsis}</Synopsis>
         </BookContent>
-        <SideBar>
-          {status === StatusEnum.in_list && section === "discover" && (
-            <button onClick={addToList}>
-              <Image src={"/plus.png"} alt="" width={20} height={20} />
-            </button>
-          )}
-          {status === StatusEnum.loading && (
+      </BookCard>
+      <SideBar>
+        {status === StatusEnum.in_list && section === "discover" && (
+          <SideButton onClick={addToList}>
+            <Image src={"/plus.png"} alt="" width={18} height={18} />
+          </SideButton>
+        )}
+        {status === StatusEnum.loading && (
+          <SideButton>
             <Image
               className="bg-transparent opacity-30"
               src={"/spinner.gif"}
@@ -89,14 +99,14 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
               width={20}
               height={20}
             />
-          )}
-          {status === StatusEnum.reading ||
-            ((section === "reading" || "finished") && (
-              <SideBarExt section={section} user_book_id={book.user_book_id} />
-            ))}
-        </SideBar>
-      </BookCard>
-    </>
+          </SideButton>
+        )}
+        {status === StatusEnum.reading ||
+          ((section === "reading" || "finished") && (
+            <SideBarExt section={section} user_book_id={book.user_book_id} />
+          ))}
+      </SideBar>
+    </BookContainer>
   )
 }
 
