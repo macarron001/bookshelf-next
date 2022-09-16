@@ -5,21 +5,42 @@ const Container = tw.div`
   grid
   grid-cols-1
   auto-rows-auto
-  mt-0
+  my-0
   mx-auto
-  pt-1
-  pb-16
+  py-16
   px-[84px]
   gap-3
+  lg:grid-cols-[1fr_3fr]
+  lg:px-[2em]
+  lg:py-[4em]
+  lg:my-0
+  lg:mx-auto
+  lg:max-w-[840px]
+  lg:gap-[1em]
 `
+
+const Main = tw.div`
+  w-full
+`
+
 const LogoutContainer = tw.div`
   flex
   items-center
-  pt-2
-  px-4
-  pb-3
-  justify-end
-  gap-3
+  absolute
+  top-[10px]
+  right-[10px]
+`
+
+const LogoutButton = tw.button`
+  cursor-pointer
+  py-[10px]
+  px-[15px]
+  border-0
+  leading-none
+  rounded-[3px]
+  bg-[#F1F2F7]
+  text-[#333333]
+  ml-[10px]
 `
 
 const NavBox = tw.nav`
@@ -31,11 +52,20 @@ const NavBox = tw.nav`
   border-[#f1f1f4]
   rounded-[3px]
   font-normal
+  lg:sticky
+  lg:top-1
+  lg:px-[1.5em]
+  lg:py-[1em]
 `
 
 const NavList = tw.ul`
   list-none
   p-0
+  lg:mb-4
+`
+
+const NavContainer = tw.div`
+  relative
 `
 
 const Link = tw.a`
@@ -60,6 +90,7 @@ ${(p) => (p.active ? "border-[#3F51B5]" : "border-transparent")}
 const HeaderBox = tw.div`
   text-xl
   text-center
+  lg:mt-5
 `
 const HeaderItem = tw.p`
   mb-4
@@ -71,26 +102,36 @@ const ContentContainer = tw.div`
   grid-cols-[1fr 3fr]
 `
 
+const BookContainer = tw.div`
+  flex
+  items-center
+  justify-end
+  relative
+`
+
 const BookCard = tw.div`
   min-h-[270px]
   grid
-  grid-flow-col
-  auto-cols-max
+  grow-2
+  grid-cols-[140px_1fr]
   gap-5
   border-solid
   border-[1px]
   border-[#E5E4E9]
   text-[#434449]
-  p-5
+  p-[1.25em]
   rounded-[3px]
 `
 
 const BookImage = tw.div`
-  w-[140px]
+  w-[100px]
+  block
 `
 
 const BookContent = tw.div`
-  w-[563px]
+  grow
+  shrink
+  basis-0
 `
 
 const HeaderBar = tw.div`
@@ -98,33 +139,47 @@ const HeaderBar = tw.div`
   justify-between
 `
 
-const TitleBar = tw.div`
-  flex-grow-1
-  flex-shrink-1
-  basis-0
+const TitleBar = tw(BookContent)`
 `
 
 const Title = tw.h2`
   text-xl
+  w-full
   font-medium
   m-0
   text-[#3F51B5]
 `
 
 const SideBar = tw.div`
-  right-20
+  ml-5
+  absolute
+  right-[-20px]
   flex
   flex-col
-  justify-center
-  items-center
+  justify-around
   h-full
+`
+const SideButton = tw.button`
+  cursor-pointer
+  p-0
+  leading-none
+  flex
+  items-center
+  justify-center
+  bg-white
+  border-solid
+  border-[1px]
+  w-[40px]
+  h-[40px]
+  rounded-[30px]
 `
 
 const InfoBox = tw.div`
-  mt-[0.4em]
+  ml-[10px]
 `
 
 const Author = tw.p`
+  mt-[0.4em]
   italic
   text-[0.85em]
 `
@@ -134,10 +189,8 @@ const Publisher = tw.p`
 `
 
 const Synopsis = tw.p`
-  text-[0.85em]
-  whitespace-pre-line
-  truncate
-  max-h-[270px]
+  text-[0.875em]
+  whitespace-normal
 `
 
 const SearchForm = tw.form`
@@ -184,6 +237,20 @@ const HeaderLink = tw.a`
   cursor-pointer
 `
 
+const RatingContainer = tw.div`
+  flex
+  items-center
+`
+
+const BookList = tw.ul`
+  list-none
+  p-0
+  grid
+  gap-[1em]
+  mt-5
+  cursor-pointer
+`
+
 export {
   Container,
   LogoutContainer,
@@ -210,4 +277,12 @@ export {
   ExtendedSideBar,
   ReadingHeader,
   HeaderLink,
+  BookContainer,
+  TitleBar,
+  RatingContainer,
+  SideButton,
+  BookList,
+  NavContainer,
+  LogoutButton,
+  Main,
 }
