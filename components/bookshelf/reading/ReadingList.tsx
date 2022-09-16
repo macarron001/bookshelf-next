@@ -3,6 +3,7 @@ import { getReadingList } from "api/books/readinglist"
 import Book from "../Book"
 import { BookType } from "api/types"
 import Header from "../Header"
+import { BookList } from "components/styled/bookshelf"
 
 interface ReadingListProp {
   setActive: Dispatch<SetStateAction<string>>
@@ -29,9 +30,9 @@ const ReadingList = ({ setActive }: ReadingListProp) => {
       {books &&
         books.map((book) => {
           return (
-            <div key={book.title}>
+            <BookList key={book.title}>
               <Book book={book} section={"reading"} />
-            </div>
+            </BookList>
           )
         })}
     </>
