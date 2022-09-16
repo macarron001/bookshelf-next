@@ -15,7 +15,6 @@ export type BookType = {
 export type UserType = {
   id: number
   username: string
-  token: string
 }
 
 export type Token = {
