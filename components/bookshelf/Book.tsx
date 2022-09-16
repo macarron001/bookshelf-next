@@ -11,15 +11,13 @@ import {
   Title,
   Synopsis,
   SideBar,
-  ExtendedSideBar,
 } from "../styled/bookshelf"
 import { BookType } from "api/types"
 import { StatusEnum } from "api/enums"
 import { addToReadingList } from "api/books/addToReadingList"
-import { markAsRead } from "api/books/markAsRead"
-import { removeFromList } from "api/books/removeFromList"
 import Rating from "@mui/material/Rating"
 import { setRating } from "api/books/setRating"
+import SideBarExt from "./SideBarExt"
 
 interface BookProps {
   book: BookType
@@ -37,18 +35,6 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
     addToReadingList(book.book_id).then(() => {
       setStatus(StatusEnum.reading)
     })
-  }
-
-  const markBook = () => {
-    markAsRead(book.user_book_id)
-  }
-
-  const removeBook = () => {
-    removeFromList(book.user_book_id)
-  }
-
-  const unmarkBook = () => {
-    console.log("book unmarked")
   }
 
   const rateBook = (_event, newRating: number | null) => {
@@ -74,15 +60,13 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
           <HeaderBar>
             <Title>{book.title}</Title>
             {(status === StatusEnum.reading || section === "finished") && (
-              <>
-                <Rating
-                  name="simple-controlled"
-                  size="small"
-                  value={currentRating}
-                  onChange={rateBook}
-                  disabled={isLoading ? true : false}
-                />
-              </>
+              <Rating
+                name="simple-controlled"
+                size="small"
+                value={currentRating}
+                onChange={rateBook}
+                disabled={isLoading ? true : false}
+              />
             )}
             <InfoBox>
               <Author>{book.author}</Author>
@@ -106,18 +90,10 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
               height={20}
             />
           )}
-          {(status === StatusEnum.reading ||
-            section === "reading" ||
-            "finished") && (
-            <ExtendedSideBar>
-              {section === "finished" ? (
-                <button onClick={unmarkBook}>📘</button>
-              ) : (
-                <button onClick={markBook}>✅</button>
-              )}
-              <button onClick={removeBook}>⛔</button>
-            </ExtendedSideBar>
-          )}
+          {status === StatusEnum.reading ||
+            ((section === "reading" || "finished") && (
+              <SideBarExt section={section} user_book_id={book.user_book_id} />
+            ))}
         </SideBar>
       </BookCard>
     </>
