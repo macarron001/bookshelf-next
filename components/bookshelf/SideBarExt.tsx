@@ -1,7 +1,7 @@
 import { markAsRead } from "api/books/markAsRead"
 import { removeFromList } from "api/books/removeFromList"
 import { setToRead } from "api/books/setToRead"
-import { ExtendedSideBar } from "components/styled/bookshelf"
+import { ExtendedSideBar, SideButton } from "components/styled/bookshelf"
 import React from "react"
 
 interface SideBarExtProps {
@@ -26,9 +26,13 @@ const SideBarExt = ({ user_book_id, section }: SideBarExtProps) => {
     <>
       {section !== "discover" && (
         <ExtendedSideBar>
-          {section === "reading" && <button onClick={markBook}>✅</button>}
-          {section === "finished" && <button onClick={unmarkBook}>📘</button>}
-          <button onClick={removeBook}>⛔</button>
+          <SideButton>
+            {section === "reading" && <button onClick={markBook}>✅</button>}
+            {section === "finished" && <button onClick={unmarkBook}>📘</button>}
+          </SideButton>
+          <SideButton>
+            <button onClick={removeBook}>⛔</button>
+          </SideButton>
         </ExtendedSideBar>
       )}
     </>
