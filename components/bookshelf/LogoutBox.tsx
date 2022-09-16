@@ -1,7 +1,6 @@
 import React from "react"
-import { LogoutContainer } from "../styled/bookshelf"
+import { LogoutButton, LogoutContainer } from "../styled/bookshelf"
 import { useRouter } from "next/router"
-import { Button } from "../styled"
 import { logout } from "api/session/logout"
 import { useSession } from "hooks/useSession"
 
@@ -18,12 +17,10 @@ const LogoutBox = () => {
   }
 
   return (
-    <>
-      <LogoutContainer>
-        {user && <p>{user.username}</p>}
-        <Button onClick={handleLogout}>Logout</Button>
-      </LogoutContainer>
-    </>
+    <LogoutContainer>
+      {user && <p>{user.username}</p>}
+      <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+    </LogoutContainer>
   )
 }
 
