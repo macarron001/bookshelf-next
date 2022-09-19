@@ -29,7 +29,7 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
       setBooks(bookList)
     }
 
-    fetchBooks().catch(console.error)
+    fetchBooks()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
