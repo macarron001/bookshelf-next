@@ -56,8 +56,8 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
           <Image
             src={`${book.cover_image_url}`}
             alt=""
-            width={100}
-            height={150}
+            width={140}
+            height={210}
           />
         </BookImage>
         <BookContent>
