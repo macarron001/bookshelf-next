@@ -23,9 +23,7 @@ const AuthorizedLayout = ({ children }: { children?: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (user) {
-    return <>{children}</>
-  }
+  return user && <>{children}</>
 }
 
 export default AuthorizedLayout
