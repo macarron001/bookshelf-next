@@ -18,7 +18,7 @@ const ReadingList = ({ setActive }: ReadingListProp) => {
       setBooks(bookList)
     }
 
-    fetchBooks().catch(console.error)
+    fetchBooks()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

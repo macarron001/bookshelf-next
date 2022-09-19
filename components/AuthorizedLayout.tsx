@@ -1,23 +1,29 @@
 import { useRouter } from "next/router"
 import React, { ReactNode, useEffect } from "react"
 import { useSession } from "hooks/useSession"
+import { whoami } from "api/session/whoami"
 
 const AuthorizedLayout = ({ children }: { children?: ReactNode }) => {
   const router = useRouter()
-  const { setUser } = useSession()
+  const { user, setUser } = useSession()
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") as string)
+    const fetchUser = async () => {
+      const user = await whoami()
 
-    if (!user) {
-      router.push("/")
-    } else {
-      setUser(user)
+      if (!user) {
+        router.push("/")
+      } else {
+        setUser(user)
+      }
     }
+
+    fetchUser()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return <>{children}</>
+  return user && <>{children}</>
 }
 
 export default AuthorizedLayout

@@ -17,6 +17,9 @@ export const errorHandler = (error: genericError) => {
     case 404:
       error_message = "Data not found - check request parameters"
       break
+    case 401:
+      error_message = "Unauthorized - login first!"
+      break
     default:
       error_message = error.message
   }
