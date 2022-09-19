@@ -1,25 +1,30 @@
 import { markAsRead } from "api/books/markAsRead"
 import { removeFromList } from "api/books/removeFromList"
 import { setToRead } from "api/books/setToRead"
+import { BookType } from "api/types"
 import { ExtendedSideBar, SideButton } from "components/styled/bookshelf"
 import React from "react"
 
 interface SideBarExtProps {
-  user_book_id: number
+  book: BookType
   section: string
+  onRemove: (book: BookType) => void
 }
 
-const SideBarExt = ({ user_book_id, section }: SideBarExtProps) => {
+const SideBarExt = ({ book, section, onRemove }: SideBarExtProps) => {
   const markBook = () => {
-    markAsRead(user_book_id)
+    markAsRead(book.user_book_id)
+    onRemove(book)
   }
 
   const removeBook = () => {
-    removeFromList(user_book_id)
+    removeFromList(book.user_book_id)
+    onRemove(book)
   }
 
   const unmarkBook = () => {
-    setToRead(user_book_id)
+    setToRead(book.user_book_id)
+    onRemove(book)
   }
 
   return (
