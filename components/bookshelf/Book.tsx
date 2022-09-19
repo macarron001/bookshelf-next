@@ -27,9 +27,10 @@ interface BookProps {
   book: BookType
   section?: "reading" | "finished" | "discover"
   rating?: number | null
+  onRemove: (book: BookType) => void
 }
 
-const Book = ({ book, rating, section = "discover" }: BookProps) => {
+const Book = ({ book, rating, onRemove, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
   const [currentRating, setCurrentRating] = useState<number | null>(rating)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -38,6 +39,7 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
     setStatus(StatusEnum.loading)
     addToReadingList(book.book_id).then(() => {
       setStatus(StatusEnum.reading)
+      onRemove(book)
     })
   }
 
@@ -103,7 +105,7 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
         )}
         {status === StatusEnum.reading ||
           ((section === "reading" || "finished") && (
-            <SideBarExt section={section} user_book_id={book.user_book_id} />
+            <SideBarExt section={section} book={book} onRemove={onRemove} />
           ))}
       </SideBar>
     </BookContainer>
