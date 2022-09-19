@@ -4,6 +4,7 @@ import { BookType } from "api/types"
 import Book from "../Book"
 import { getDiscover } from "api/books/discover"
 import Header from "../Header"
+import { BookList } from "components/styled/bookshelf"
 
 const Discover = () => {
   const [books, setBooks] = useState<BookType[]>([])
@@ -15,7 +16,7 @@ const Discover = () => {
       setBooks(bookList)
     }
 
-    fetchBooks().catch(console.error)
+    fetchBooks()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -27,9 +28,9 @@ const Discover = () => {
         books &&
         books.map((book) => {
           return (
-            <div key={book.book_id}>
+            <BookList key={book.book_id}>
               <Book book={book} />
-            </div>
+            </BookList>
           )
         })}
     </>
