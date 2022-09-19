@@ -110,7 +110,9 @@ const BookContainer = tw.div`
 `
 
 const BookCard = tw.div`
-  min-h-[270px]
+  text-ellipsis
+  overflow-hidden
+  max-h-[270px]
   grid
   grow-2
   grid-cols-[140px_1fr]
@@ -124,7 +126,7 @@ const BookCard = tw.div`
 `
 
 const BookImage = tw.div`
-  w-[100px]
+  w-[140px]
   block
 `
 
