@@ -7,7 +7,6 @@ export const logout = async (): Promise<number> => {
       method: "DELETE",
     })
     .then((res) => {
-      localStorage.removeItem("user")
       localStorage.removeItem("userToken")
       return res.status
     })
