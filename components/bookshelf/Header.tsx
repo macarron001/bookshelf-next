@@ -4,20 +4,21 @@ import {
   HeaderLink,
   ReadingHeader,
 } from "components/styled/bookshelf"
-import React, { Dispatch, SetStateAction } from "react"
+import React from "react"
+import { useBooks } from "context/BookContext"
 
 interface HeaderProp {
-  setActive?: Dispatch<SetStateAction<string>>
   list_type: "discover" | "reading" | "finished"
 }
 
-const Header = ({ setActive, list_type }: HeaderProp) => {
+const Header = ({ list_type }: HeaderProp) => {
+  const { setActive } = useBooks()
   const handleDiscover = () => {
-    setActive?.("Discover")
+    setActive("Discover")
   }
 
   const handleReading = () => {
-    setActive?.("Reading List")
+    setActive("Reading List")
   }
   return (
     <>
@@ -39,7 +40,7 @@ const Header = ({ setActive, list_type }: HeaderProp) => {
               Hey there! Welcome to your bookshelf reading list. Get started by
               heading over to{" "}
             </span>
-            <HeaderLink onClick={handleReading}>the Discover page</HeaderLink>
+            <HeaderLink onClick={handleDiscover}>the Discover page</HeaderLink>
             <span> to add books to your list.</span>
           </ReadingHeader>
         </>

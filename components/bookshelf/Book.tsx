@@ -22,39 +22,48 @@ import { addToReadingList } from "api/books/addToReadingList"
 import Rating from "@mui/material/Rating"
 import { setRating } from "api/books/setRating"
 import SideBarExt from "./SideBarExt"
+import { useBooks } from "context/BookContext"
 
 interface BookProps {
   book: BookType
   section?: "reading" | "finished" | "discover"
   rating?: number | null
-  onRemove: (book: BookType) => void
 }
 
-const Book = ({ book, rating, onRemove, section = "discover" }: BookProps) => {
+const Book = ({ book, rating, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
   const [currentRating, setCurrentRating] = useState<number | null>(rating)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { setSelectedBook, setIsBookSelected, onRemove, setActive } = useBooks()
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
     addToReadingList(book.book_id).then(() => {
       setStatus(StatusEnum.reading)
-      onRemove(book)
+      onRemove(book, "discover")
     })
   }
 
   const rateBook = (_event, newRating: number | null) => {
-    setCurrentRating(newRating)
-    setIsLoading(true)
-    setRating(book.user_book_id, newRating).then(() => {
-      setIsLoading(false)
-    })
+    if (newRating !== null) {
+      setCurrentRating(newRating)
+      setIsLoading(true)
+      setRating(book.user_book_id, newRating).then(() => {
+        setIsLoading(false)
+      })
+    }
+  }
+
+  const handleBookSelect = () => {
+    setSelectedBook(book)
+    setIsBookSelected(true)
+    setActive("Detailed Book")
   }
 
   return (
     <BookContainer>
       <BookCard>
-        <BookImage>
+        <BookImage onClick={handleBookSelect}>
           <Image
             src={`${book.cover_image_url}`}
             alt=""
@@ -65,7 +74,7 @@ const Book = ({ book, rating, onRemove, section = "discover" }: BookProps) => {
         <BookContent>
           <HeaderBar>
             <TitleBar>
-              <Title>{book.title}</Title>
+              <Title onClick={handleBookSelect}>{book.title}</Title>
               {(status === StatusEnum.reading || section === "finished") && (
                 <RatingContainer>
                   <Rating
@@ -83,7 +92,7 @@ const Book = ({ book, rating, onRemove, section = "discover" }: BookProps) => {
               <Publisher>{book.publisher}</Publisher>
             </InfoBox>
           </HeaderBar>
-          <Synopsis>{book.synopsis}</Synopsis>
+          <Synopsis onClick={handleBookSelect}>{book.synopsis}</Synopsis>
         </BookContent>
       </BookCard>
       <SideBar>
@@ -105,7 +114,7 @@ const Book = ({ book, rating, onRemove, section = "discover" }: BookProps) => {
         )}
         {status === StatusEnum.reading ||
           ((section === "reading" || "finished") && (
-            <SideBarExt section={section} book={book} onRemove={onRemove} />
+            <SideBarExt section={section} book={book} />
           ))}
       </SideBar>
     </BookContainer>

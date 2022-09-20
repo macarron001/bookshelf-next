@@ -1,15 +1,13 @@
-import React, { Dispatch, SetStateAction } from "react"
+import React from "react"
 import { ActivePageEnum } from "api/enums"
 import { NavBox, NavList, Link, NavContainer } from "../styled/bookshelf"
+import { useBooks } from "context/BookContext"
 
-interface NavigationProps {
-  active: string
-  setActive: Dispatch<SetStateAction<string>>
-}
-
-const Navigation = ({ active, setActive }: NavigationProps) => {
+const Navigation = () => {
+  const { setIsBookSelected, active, setActive } = useBooks()
   const handleClick = (e: string | any) => {
     setActive(e.target.innerText)
+    setIsBookSelected(false)
   }
   return (
     <NavContainer>
