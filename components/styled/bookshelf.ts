@@ -128,6 +128,7 @@ const BookCard = tw.div`
 const BookImage = tw.div`
   w-[140px]
   block
+  cursor-pointer
 `
 
 const BookContent = tw.div`
@@ -150,6 +151,7 @@ const Title = tw.h2`
   font-medium
   m-0
   text-[#3F51B5]
+  cursor-pointer
 `
 
 const SideBar = tw.div`
@@ -161,7 +163,7 @@ const SideBar = tw.div`
   justify-around
   h-full
 `
-const SideButton = tw.button`
+const SideButton = tw.div`
   cursor-pointer
   p-0
   leading-none
@@ -192,7 +194,9 @@ const Publisher = tw.p`
 
 const Synopsis = tw.p`
   text-[0.875em]
-  whitespace-normal
+  overflow-hidden
+  text-ellipsis
+  cursor-pointer
 `
 
 const SearchForm = tw.form`
@@ -242,6 +246,7 @@ const HeaderLink = tw.a`
 const RatingContainer = tw.div`
   flex
   items-center
+  float-left
 `
 
 const BookList = tw.ul`
@@ -250,7 +255,6 @@ const BookList = tw.ul`
   grid
   gap-[1em]
   mt-5
-  cursor-pointer
 `
 
 export {
