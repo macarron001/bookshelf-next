@@ -42,3 +42,7 @@ export const checkID = (book: BookType) => {
 export const checkFinishDate = (book: BookType) => {
   return book.finish_date
 }
+
+export const checkNotes = (book: BookType) => {
+  return book.notes ? book.notes : ""
+}
