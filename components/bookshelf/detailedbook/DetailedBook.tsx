@@ -1,3 +1,4 @@
+import React, { SyntheticEvent, useState } from "react"
 import { BookType } from "api/types"
 import {
   BookContainer,
@@ -9,12 +10,14 @@ import {
   Divider,
   ItalicizedContainer,
   ItalicizedText,
+  NotesContainer,
+  NoteTitle,
   SideBtn,
   SideButtonContainer,
   Synopsis,
+  TextArea,
   WhiteSpace,
 } from "./style"
-import React, { useState } from "react"
 import Image from "next/image"
 import { Rating } from "@mui/material"
 import Moment from "moment"
@@ -24,7 +27,8 @@ import { markAsRead } from "api/books/markAsRead"
 import { removeFromList } from "api/books/removeFromList"
 import { setToRead } from "api/books/setToRead"
 import { addToReadingList } from "api/books/addToReadingList"
-import { checkRating, checkID, checkFinishDate } from "./utils"
+import { checkRating, checkID, checkFinishDate, checkNotes } from "api/utils"
+import { setNotes } from "api/books/setNotes"
 
 interface DetailedBookProps {
   book: BookType
@@ -37,12 +41,16 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
   const [userBookID, setUserBookID] = useState<number | null>(() =>
     checkID(book)
   )
+  const [text, setText] = useState<string>(() => checkNotes(book))
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isFinished, setIsFinished] = useState<boolean>(() => {
+  const [isFinished, setIsFinished] = useState<boolean | string>(() => {
     return checkFinishDate(book)
   })
 
-  const rateBook = (_event, newRating: number | null) => {
+  const rateBook = (
+    _event: SyntheticEvent<Element, Event>,
+    newRating: number | null
+  ) => {
     if (newRating !== null) {
       setCurrentRating(newRating)
       setIsLoading(true)
@@ -82,6 +90,16 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
       setToRead(userBookID).then(() => {
         setIsFinished(false)
       })
+    }
+  }
+
+  const updateNotes = (e) => {
+    setText(e.target.value)
+  }
+
+  const handleBlur = () => {
+    if (userBookID) {
+      setNotes(userBookID, text)
     }
   }
 
@@ -150,6 +168,12 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
           <Synopsis>{book.synopsis}</Synopsis>
         </div>
       </BookContainer>
+      {userBookID && (
+        <NotesContainer>
+          <NoteTitle>Notes</NoteTitle>
+          <TextArea value={text} onChange={updateNotes} onBlur={handleBlur} />
+        </NotesContainer>
+      )}
     </div>
   )
 }
