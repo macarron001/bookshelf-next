@@ -73,6 +73,27 @@ const DateContainer = tw.div`
   mt-[6px]
 `
 
+const NotesContainer = tw.div`
+  flex
+  flex-col
+`
+
+const TextArea = tw.textarea`
+  w-full
+  min-h-[300px]
+  bg-[#F1F2F7]
+  border-solid
+  border-[1px]
+  border-[#F1F1F4]
+`
+const NoteTitle = tw.p`
+  inline-block
+  mr-[10px]
+  mt-0
+  mb-2
+  font-bold
+`
+
 export {
   BookContainer,
   BookImageContainer,
@@ -87,4 +108,7 @@ export {
   WhiteSpace,
   Synopsis,
   DateContainer,
+  NotesContainer,
+  TextArea,
+  NoteTitle,
 }

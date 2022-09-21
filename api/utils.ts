@@ -1,4 +1,5 @@
 import { ToastMessage } from "components/toast"
+import { BookType } from "api/types"
 
 export interface genericError {
   message: string
@@ -28,4 +29,20 @@ export const errorHandler = (error: genericError) => {
     type: "error",
     message: error_message,
   })
+}
+
+export const checkRating = (book: BookType) => {
+  return book.rating ? book.rating : 0
+}
+
+export const checkID = (book: BookType) => {
+  return book.user_book_id ? book.user_book_id : null
+}
+
+export const checkFinishDate = (book: BookType) => {
+  return book.finish_date
+}
+
+export const checkNotes = (book: BookType) => {
+  return book.notes ? book.notes : ""
 }

@@ -4,6 +4,7 @@ import { getFinishedList } from "api/books/finishedlist"
 import Header from "../Header"
 import { BookList } from "components/styled/bookshelf"
 import { useBooks } from "context/BookContext"
+import { errorHandler } from "api/utils"
 
 const FinishedList = () => {
   const { finishedBooks, setFinishedBooks } = useBooks()
@@ -14,7 +15,7 @@ const FinishedList = () => {
       setFinishedBooks(bookList)
     }
 
-    fetchBooks().catch(console.error)
+    fetchBooks().catch((error) => errorHandler(error))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
