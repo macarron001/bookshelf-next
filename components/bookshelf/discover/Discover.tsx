@@ -5,7 +5,6 @@ import { getDiscover } from "api/books/discover"
 import Header from "../Header"
 import { BookList } from "components/styled/bookshelf"
 import { useBooks } from "context/BookContext"
-import { BookType } from "api/types"
 
 const Discover = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false)
@@ -21,10 +20,6 @@ const Discover = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleRemove = (book: BookType) => {
-    setDiscoverBooks((prev) => prev.filter((item) => item.title !== book.title))
-  }
-
   return (
     <>
       <SearchBox setIsSearching={setIsSearching} />
@@ -34,7 +29,7 @@ const Discover = () => {
         discoverBooks.map((book) => {
           return (
             <BookList key={book.book_id}>
-              <Book book={book} onRemove={handleRemove} />
+              <Book book={book} />
             </BookList>
           )
         })}

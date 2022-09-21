@@ -2,32 +2,33 @@ import { NextPage } from "next"
 import "react-toastify/dist/ReactToastify.css"
 import Navigation from "../components/bookshelf/Navigation"
 import { Container, Main } from "../components/styled/bookshelf"
-import { useState } from "react"
 import Discover from "../components/bookshelf/discover/Discover"
 import LogoutBox from "../components/bookshelf/LogoutBox"
 import { ActivePageEnum } from "../api/enums"
 import AuthorizedLayout from "../components/AuthorizedLayout"
 import ReadingList from "../components/bookshelf/reading/ReadingList"
 import FinishedList from "./../components/bookshelf/finished/FinishedList"
+import { useBooks } from "context/BookContext"
+import DetailedBook from "components/bookshelf/detailedbook/DetailedBook"
 
 const Home: NextPage = () => {
-  const [active, setActive] = useState<ActivePageEnum | string>(
-    ActivePageEnum.to_read
-  )
+  const { isBookSelected, selectedBook, active } = useBooks()
 
   return (
     <>
       <AuthorizedLayout>
         <LogoutBox />
         <Container>
-          <Navigation active={active} setActive={setActive} />
+          <Navigation />
           <Main>
-            {active === ActivePageEnum.discover && <Discover />}
-            {active === ActivePageEnum.to_read && (
-              <ReadingList setActive={setActive} />
-            )}
-            {active === ActivePageEnum.finished && (
-              <FinishedList setActive={setActive} />
+            {isBookSelected ? (
+              <DetailedBook book={selectedBook} />
+            ) : (
+              <>
+                {active === ActivePageEnum.discover && <Discover />}
+                {active === ActivePageEnum.to_read && <ReadingList />}
+                {active === ActivePageEnum.finished && <FinishedList />}
+              </>
             )}
           </Main>
         </Container>
