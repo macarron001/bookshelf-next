@@ -38,7 +38,7 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
-    addToReadingList(book.book_id).then(() => {
+    addToReadingList(book.id).then(() => {
       setStatus(StatusEnum.reading)
       onRemove(book, "discover")
     })

@@ -8,7 +8,7 @@ export type BookType = {
   rating: number
   start_date: string
   finish_date: string
-  book_id: number
+  id: number
   notes: string
 }
 
