@@ -27,14 +27,22 @@ import { markAsRead } from "api/books/markAsRead"
 import { removeFromList } from "api/books/removeFromList"
 import { setToRead } from "api/books/setToRead"
 import { addToReadingList } from "api/books/addToReadingList"
-import { checkRating, checkID, checkFinishDate, checkNotes } from "api/utils"
+import {
+  checkRating,
+  checkID,
+  checkFinishDate,
+  checkNotes,
+  refreshRating,
+} from "api/utils"
 import { setNotes } from "api/books/setNotes"
+import { useBooks } from "context/BookContext"
 
 interface DetailedBookProps {
   book: BookType
 }
 
 const DetailedBook = ({ book }: DetailedBookProps) => {
+  const { finishedBooks } = useBooks()
   const [currentRating, setCurrentRating] = useState<number>(() =>
     checkRating(book)
   )
@@ -57,6 +65,7 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
       if (userBookID) {
         setRating(userBookID, newRating).then(() => {
           setIsLoading(false)
+          refreshRating(newRating, book, finishedBooks)
         })
       }
     }

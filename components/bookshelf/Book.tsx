@@ -23,6 +23,7 @@ import Rating from "@mui/material/Rating"
 import { setRating } from "api/books/setRating"
 import SideBarExt from "./SideBarExt"
 import { useBooks } from "context/BookContext"
+import { refreshRating } from "api/utils"
 
 interface BookProps {
   book: BookType
@@ -34,7 +35,13 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
   const [currentRating, setCurrentRating] = useState<number | null>(rating)
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setSelectedBook, setIsBookSelected, onRemove, setActive } = useBooks()
+  const {
+    setSelectedBook,
+    setIsBookSelected,
+    onRemove,
+    setActive,
+    finishedBooks,
+  } = useBooks()
 
   const addToList = () => {
     setStatus(StatusEnum.loading)
@@ -50,6 +57,7 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
       setIsLoading(true)
       setRating(book.user_book_id, newRating).then(() => {
         setIsLoading(false)
+        refreshRating(newRating, book, finishedBooks)
       })
     }
   }
