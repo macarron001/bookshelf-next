@@ -63,7 +63,7 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
   }
 
   const addToList = () => {
-    addToReadingList(book.book_id).then((res) => {
+    addToReadingList(book.id).then((res) => {
       setUserBookID(res.user_book_id)
     })
   }

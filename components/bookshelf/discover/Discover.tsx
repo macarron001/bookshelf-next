@@ -28,7 +28,7 @@ const Discover = () => {
         discoverBooks &&
         discoverBooks.map((book) => {
           return (
-            <BookList key={book.book_id}>
+            <BookList key={book.id}>
               <Book book={book} />
             </BookList>
           )

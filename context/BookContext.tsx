@@ -46,7 +46,7 @@ const initialBook = {
   rating: 0,
   start_date: "start",
   finish_date: "finish",
-  book_id: 123123,
+  id: 123123,
   notes: "notes",
 }
 
