@@ -6,15 +6,13 @@ import {
   Label,
   Button,
   Error,
-  SpinnerContainer,
-  SpinnerBox,
-  Spinner,
 } from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { register } from "api/session/register"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
+import Spinner from "components/Spinner"
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -32,15 +30,19 @@ const RegisterForm = () => {
     }),
     onSubmit: async (values) => {
       setIsLoading(true)
-      await register(values).then((res) => {
-        setIsLoading(false)
-        if (res === 200) {
-          ToastMessage({ type: "success", message: "Registration Successful" })
-          router.push("/bookshelf")
-        } else {
-          formik.setErrors(res)
-        }
-      })
+      await register(values)
+        .then((res) => {
+          if (res === 200) {
+            ToastMessage({
+              type: "success",
+              message: "Registration Successful",
+            })
+            router.push("/bookshelf")
+          } else {
+            formik.setErrors(res)
+          }
+        })
+        .finally(() => setIsLoading(false))
     },
   })
 
@@ -80,13 +82,7 @@ const RegisterForm = () => {
         >
           Register
         </Button>
-        <SpinnerContainer isLoading={isLoading}>
-          {isLoading && (
-            <SpinnerBox>
-              <Spinner viewBox="0 0 24 24" />
-            </SpinnerBox>
-          )}
-        </SpinnerContainer>
+        <Spinner isLoading={isLoading} />
       </FormBtnContainer>
     </AuthenticationForm>
   )

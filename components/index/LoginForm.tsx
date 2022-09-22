@@ -6,9 +6,6 @@ import {
   Label,
   Button,
   Error,
-  SpinnerContainer,
-  SpinnerBox,
-  Spinner,
 } from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
@@ -16,6 +13,7 @@ import { login } from "api/session/login"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
 import { useSession } from "hooks/useSession"
+import Spinner from "components/Spinner"
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -34,16 +32,17 @@ const LoginForm = () => {
     }),
     onSubmit: async (values) => {
       setIsLoading(true)
-      await login(values).then((res) => {
-        setIsLoading(false)
-        if (res.password) {
-          formik.setErrors(res)
-          ToastMessage({ type: "error", message: res.password })
-        } else {
-          setUser(res)
-          router.push("/bookshelf")
-        }
-      })
+      await login(values)
+        .then((res) => {
+          if (res.password) {
+            formik.setErrors(res)
+            ToastMessage({ type: "error", message: res.password })
+          } else {
+            setUser(res)
+            router.push("/bookshelf")
+          }
+        })
+        .finally(() => setIsLoading(false))
     },
   })
 
@@ -84,13 +83,7 @@ const LoginForm = () => {
         >
           Login
         </Button>
-        <SpinnerContainer isLoading={isLoading}>
-          {isLoading && (
-            <SpinnerBox>
-              <Spinner viewBox="0 0 24 24" />
-            </SpinnerBox>
-          )}
-        </SpinnerContainer>
+        <Spinner isLoading={isLoading} />
       </FormBtnContainer>
     </AuthenticationForm>
   )
