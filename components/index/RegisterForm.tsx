@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   AuthenticationForm,
   FormBtnContainer,
@@ -12,8 +12,10 @@ import * as Yup from "yup"
 import { register } from "api/session/register"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
+import Spinner from "components/Spinner"
 
 const RegisterForm = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
   const formik = useFormik({
     initialValues: {
@@ -27,14 +29,20 @@ const RegisterForm = () => {
         .required("Required"),
     }),
     onSubmit: async (values) => {
-      await register(values).then((res) => {
-        if (res === 200) {
-          ToastMessage({ type: "success", message: "Registration Successful" })
-          router.push("/bookshelf")
-        } else {
-          formik.setErrors(res)
-        }
-      })
+      setIsLoading(true)
+      await register(values)
+        .then((res) => {
+          if (res === 200) {
+            ToastMessage({
+              type: "success",
+              message: "Registration Successful",
+            })
+            router.push("/bookshelf")
+          } else {
+            formik.setErrors(res)
+          }
+        })
+        .finally(() => setIsLoading(false))
     },
   })
 
@@ -67,9 +75,14 @@ const RegisterForm = () => {
         ) : null}
       </FormGroup>
       <FormBtnContainer>
-        <Button type="submit" onClick={formik.handleSubmit}>
+        <Button
+          type="submit"
+          onClick={formik.handleSubmit}
+          disabled={isLoading ? true : false}
+        >
           Register
         </Button>
+        <Spinner isLoading={isLoading} />
       </FormBtnContainer>
     </AuthenticationForm>
   )

@@ -4,13 +4,13 @@ const Button = tw.div`
   ${(p: { purple: boolean }) => (p.purple ? "bg-[#3F51B5]" : "bg-[#F1F2F7]")} 
   ${(p: { purple: boolean }) => (p.purple ? "text-white" : "text-black")} 
 
-  py-2.5
-  px-[15px]
+  py-1.5
+  px-[14px]
   border-none
   leading-normal
   rounded-[3px]
   cursor-pointer
-  text-[15px]
+  text-[16px]
   text-center
 `
 
@@ -132,7 +132,8 @@ const FormBtnContainer = tw(ButtonContainer)`
   p-4
   mt-0
   pt-0
-  grid-cols-3
+  flex
+  flex-start
 `
 const Error = tw.span`
   text-red-700
@@ -140,6 +141,31 @@ const Error = tw.span`
   pl-4
   relative
   bottom-[18px]
+`
+
+const SpinnerContainer = tw.div`
+  ${(p: { isLoading: boolean }) => (p.isLoading ? "flex" : "hidden")} 
+`
+
+const SpinnerBox = tw.div`
+  flex
+  justify-start
+  items-center
+`
+
+const SpinnerIcon = tw.svg`
+  border-gray-500
+  bg-transparent
+  bg-opacity-50
+  animate-spin
+  inline-block 
+  h-6 
+  w-6 
+  mr-3 
+  border-4 
+  rounded-full
+  border-r-gray-300
+  border-t-gray-300
 `
 
 export {
@@ -158,4 +184,7 @@ export {
   Label,
   FormBtnContainer,
   Error,
+  SpinnerContainer,
+  SpinnerBox,
+  SpinnerIcon,
 }
