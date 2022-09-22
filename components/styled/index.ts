@@ -153,7 +153,7 @@ const SpinnerBox = tw.div`
   items-center
 `
 
-const Spinner = tw.svg`
+const SpinnerIcon = tw.svg`
   border-gray-500
   bg-transparent
   bg-opacity-50
@@ -186,5 +186,5 @@ export {
   Error,
   SpinnerContainer,
   SpinnerBox,
-  Spinner,
+  SpinnerIcon,
 }
