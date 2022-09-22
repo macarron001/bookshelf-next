@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   AuthenticationForm,
   FormBtnContainer,
@@ -6,6 +6,9 @@ import {
   Label,
   Button,
   Error,
+  SpinnerContainer,
+  SpinnerBox,
+  Spinner,
 } from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
@@ -15,6 +18,7 @@ import { useRouter } from "next/router"
 import { useSession } from "hooks/useSession"
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const { setUser } = useSession()
   const router = useRouter()
   const formik = useFormik({
@@ -29,7 +33,9 @@ const LoginForm = () => {
         .required("Required"),
     }),
     onSubmit: async (values) => {
+      setIsLoading(true)
       await login(values).then((res) => {
+        setIsLoading(false)
         if (res.password) {
           formik.setErrors(res)
           ToastMessage({ type: "error", message: res.password })
@@ -70,9 +76,21 @@ const LoginForm = () => {
         ) : null}
       </FormGroup>
       <FormBtnContainer>
-        <Button purple={true} onClick={formik.handleSubmit} type="submit">
+        <Button
+          purple={true}
+          onClick={formik.handleSubmit}
+          type="submit"
+          disabled={isLoading ? true : false}
+        >
           Login
         </Button>
+        <SpinnerContainer isLoading={isLoading}>
+          {isLoading && (
+            <SpinnerBox>
+              <Spinner viewBox="0 0 24 24" />
+            </SpinnerBox>
+          )}
+        </SpinnerContainer>
       </FormBtnContainer>
     </AuthenticationForm>
   )
