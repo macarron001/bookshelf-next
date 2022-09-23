@@ -30,13 +30,11 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleChange = (e: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setSearchInput(e.target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.currentTarget.value)
   }
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (searchInput) {
       const filteredBooks = books.filter((book: BookType) => {
