@@ -8,19 +8,16 @@ import {
 import Book from "../Book"
 import { BookType } from "api/types"
 import { getBookList } from "api/books/booklist"
+import { BookList } from "components/styled/bookshelf"
+import { ToastMessage } from "components/toast"
 
 interface SearchBoxProps {
   setIsSearching: Dispatch<SetStateAction<boolean>>
 }
 
-type SearchInputType = {
-  searchInput?: string
-  setSearchInput: Dispatch<SetStateAction<string | null>>
-}
-
 const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
   const [filteredData, setFilteredData] = useState<BookType[]>()
-  const [searchInput, setSearchInput] = useState<SearchInputType>()
+  const [searchInput, setSearchInput] = useState<string>("")
   const [books, setBooks] = useState<BookType[]>([])
 
   useEffect(() => {
@@ -33,17 +30,21 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleChange = (e) => {
-    setSearchInput(e.target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.currentTarget.value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const filteredBooks = books.filter((book: BookType) => {
-      return book.title.toLowerCase().includes(searchInput?.toLowerCase())
-    })
-    setFilteredData(filteredBooks)
-    setIsSearching(true)
+    if (searchInput) {
+      const filteredBooks = books.filter((book: BookType) => {
+        return book.title.toLowerCase().includes(searchInput?.toLowerCase())
+      })
+      setFilteredData(filteredBooks)
+      setIsSearching(true)
+    } else {
+      ToastMessage({ type: "error", message: "Search field cannot be empty" })
+    }
   }
 
   return (
@@ -61,9 +62,9 @@ const SearchBox = ({ setIsSearching }: SearchBoxProps) => {
       {filteredData &&
         filteredData.map((data) => {
           return (
-            <div key={data.title}>
+            <BookList key={data.title}>
               <Book book={data} />
-            </div>
+            </BookList>
           )
         })}
     </>
