@@ -73,9 +73,13 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
   }
 
   const addToList = () => {
-    addToReadingList(book.id).then((res) => {
-      setUserBookID(res.user_book_id)
-    })
+    const id = book.id ? book.id : book.book_id
+    if (id) {
+      addToReadingList(id).then((res) => {
+        console.log(res)
+        setUserBookID(res.user_book_id)
+      })
+    }
   }
 
   const markBook = () => {
@@ -87,6 +91,7 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
   }
 
   const removeBook = () => {
+    console.log(book)
     if (userBookID) {
       removeFromList(userBookID).then(() => {
         setIsFinished(false)
