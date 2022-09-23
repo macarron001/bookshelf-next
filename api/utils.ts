@@ -46,3 +46,14 @@ export const checkFinishDate = (book: BookType) => {
 export const checkNotes = (book: BookType) => {
   return book.notes ? book.notes : ""
 }
+
+export const refreshRating = (
+  rating: number,
+  book: BookType,
+  finished_books: BookType[]
+) => {
+  const index = finished_books.findIndex(
+    (item) => item.user_book_id == book.user_book_id
+  )
+  finished_books[index].rating = rating
+}
