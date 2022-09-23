@@ -1,7 +1,7 @@
 import React from "react"
 import { LogoutButton, LogoutContainer } from "../styled/bookshelf"
 import { useRouter } from "next/router"
-import { logout } from "api/session/logout"
+import { logout } from "api/session"
 import { useSession } from "hooks/useSession"
 import { useBooks } from "context/BookContext"
 

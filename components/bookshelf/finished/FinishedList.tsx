@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
-import Book from "../Book"
-import { getFinishedList } from "api/books/finishedlist"
+import Book from "../../book/Book"
+import { getFinishedList } from "api/books"
 import Header from "../Header"
 import { BookList } from "components/styled/bookshelf"
 import { useBooks } from "context/BookContext"

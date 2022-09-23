@@ -21,12 +21,12 @@ import {
 import Image from "next/image"
 import { Rating } from "@mui/material"
 import Moment from "moment"
-import { setRating } from "api/books/setRating"
-import { ExtendedSideBar, SideButton } from "components/styled/bookshelf"
-import { markAsRead } from "api/books/markAsRead"
-import { removeFromList } from "api/books/removeFromList"
-import { setToRead } from "api/books/setToRead"
-import { addToReadingList } from "api/books/addToReadingList"
+import { setRating } from "api/books"
+import { ExtendedSideBar } from "components/styled/bookshelf"
+import { markAsRead } from "api/books"
+import { removeFromList } from "api/books"
+import { setToRead } from "api/books"
+import { addToReadingList } from "api/books"
 import {
   checkRating,
   checkID,
@@ -34,8 +34,9 @@ import {
   checkNotes,
   refreshRating,
 } from "api/utils"
-import { setNotes } from "api/books/setNotes"
+import { setNotes } from "api/books"
 import { useBooks } from "context/BookContext"
+import { SideButton } from "components/book/style"
 
 interface DetailedBookProps {
   book: BookType

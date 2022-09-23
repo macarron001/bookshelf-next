@@ -1,4 +1,4 @@
-import { SideButton } from "components/styled/bookshelf"
+import { SideButton } from "../../book/style"
 import tw from "tailwind-styled-components"
 
 const BookContainer = tw.div`

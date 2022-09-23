@@ -9,7 +9,7 @@ import {
 } from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { register } from "api/session/register"
+import { register } from "api/session"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
 import Spinner from "components/Spinner"

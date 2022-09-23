@@ -1,13 +1,8 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react"
-import {
-  SearchButton,
-  SearchForm,
-  SearchInput,
-  SearchLabel,
-} from "../../styled/bookshelf"
-import Book from "../Book"
+import { SearchButton, SearchForm, SearchInput, SearchLabel } from "./style"
+import Book from "../../book/Book"
 import { BookType } from "api/types"
-import { getBookList } from "api/books/booklist"
+import { getBookList } from "api/books"
 import { BookList } from "components/styled/bookshelf"
 import { ToastMessage } from "components/toast"
 

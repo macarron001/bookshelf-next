@@ -102,127 +102,6 @@ const ContentContainer = tw.div`
   grid-cols-[1fr 3fr]
 `
 
-const BookContainer = tw.div`
-  flex
-  items-center
-  justify-end
-  relative
-`
-
-const BookCard = tw.div`
-  text-ellipsis
-  overflow-hidden
-  max-h-[270px]
-  grid
-  grow-2
-  grid-cols-[140px_1fr]
-  gap-5
-  border-solid
-  border-[1px]
-  border-[#E5E4E9]
-  text-[#434449]
-  p-[1.25em]
-  rounded-[3px]
-`
-
-const BookImage = tw.div`
-  w-[140px]
-  block
-  cursor-pointer
-`
-
-const BookContent = tw.div`
-  grow
-  shrink
-  basis-0
-`
-
-const HeaderBar = tw.div`
-  flex
-  justify-between
-`
-
-const TitleBar = tw(BookContent)`
-`
-
-const Title = tw.h2`
-  text-xl
-  w-full
-  font-medium
-  m-0
-  text-[#3F51B5]
-  cursor-pointer
-`
-
-const SideBar = tw.div`
-  ml-5
-  absolute
-  right-[-20px]
-  flex
-  flex-col
-  justify-around
-  h-full
-`
-const SideButton = tw.div`
-  cursor-pointer
-  p-0
-  leading-none
-  flex
-  items-center
-  justify-center
-  bg-white
-  border-solid
-  border-[1px]
-  w-[40px]
-  h-[40px]
-  rounded-[30px]
-`
-
-const InfoBox = tw.div`
-  ml-[10px]
-`
-
-const Author = tw.p`
-  mt-[0.4em]
-  italic
-  text-[0.85em]
-`
-
-const Publisher = tw.p`
-  text-[0.875em]
-`
-
-const Synopsis = tw.p`
-  text-[0.875em]
-  overflow-hidden
-  text-ellipsis
-  cursor-pointer
-`
-
-const SearchForm = tw.form`
-  w-full
-  p-0
-  mt-0
-`
-
-const SearchInput = tw.input`
-  w-full
-  mx-0
-  mb-[10px]
-`
-
-const SearchLabel = tw.label`
-  inline-block
-`
-
-const SearchButton = tw.button`
-  border-0
-  relative
-  ml-[-35px]
-  bg-transparent
-  cursor-pointer
-`
-
 const ExtendedSideBar = tw.div`
   right-20
   text-gray-500
@@ -243,12 +122,6 @@ const HeaderLink = tw.a`
   cursor-pointer
 `
 
-const RatingContainer = tw.div`
-  flex
-  items-center
-  float-left
-`
-
 const BookList = tw.ul`
   list-none
   p-0
@@ -266,27 +139,9 @@ export {
   HeaderBox,
   HeaderItem,
   ContentContainer,
-  BookCard,
-  BookImage,
-  SideBar,
-  BookContent,
-  HeaderBar,
-  Title,
-  Author,
-  Publisher,
-  InfoBox,
-  Synopsis,
-  SearchForm,
-  SearchButton,
-  SearchInput,
-  SearchLabel,
   ExtendedSideBar,
   ReadingHeader,
   HeaderLink,
-  BookContainer,
-  TitleBar,
-  RatingContainer,
-  SideButton,
   BookList,
   NavContainer,
   LogoutButton,
