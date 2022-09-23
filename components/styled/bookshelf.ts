@@ -130,6 +130,15 @@ const BookList = tw.ul`
   mt-5
 `
 
+const NoResultContainer = tw.div`
+  p-5
+  flex
+  justify-center
+  items-center
+  text-center
+  text-2xl
+`
+
 export {
   Container,
   LogoutContainer,
@@ -146,4 +155,5 @@ export {
   NavContainer,
   LogoutButton,
   Main,
+  NoResultContainer,
 }
