@@ -10,6 +10,7 @@ export type BookType = {
   finish_date: string
   id: number
   notes: string
+  book_id?: number
 }
 
 export type UserType = {

@@ -21,12 +21,12 @@ import {
 import Image from "next/image"
 import { Rating } from "@mui/material"
 import Moment from "moment"
-import { setRating } from "api/books/setRating"
-import { ExtendedSideBar, SideButton } from "components/styled/bookshelf"
-import { markAsRead } from "api/books/markAsRead"
-import { removeFromList } from "api/books/removeFromList"
-import { setToRead } from "api/books/setToRead"
-import { addToReadingList } from "api/books/addToReadingList"
+import { setRating } from "api/books"
+import { ExtendedSideBar } from "components/styled/bookshelf"
+import { markAsRead } from "api/books"
+import { removeFromList } from "api/books"
+import { setToRead } from "api/books"
+import { addToReadingList } from "api/books"
 import {
   checkRating,
   checkID,
@@ -34,8 +34,9 @@ import {
   checkNotes,
   refreshRating,
 } from "api/utils"
-import { setNotes } from "api/books/setNotes"
+import { setNotes } from "api/books"
 import { useBooks } from "context/BookContext"
+import { SideButton } from "components/book/style"
 
 interface DetailedBookProps {
   book: BookType
@@ -72,9 +73,13 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
   }
 
   const addToList = () => {
-    addToReadingList(book.id).then((res) => {
-      setUserBookID(res.user_book_id)
-    })
+    const id = book.id ? book.id : book.book_id
+    if (id) {
+      addToReadingList(id).then((res) => {
+        console.log(res)
+        setUserBookID(res.user_book_id)
+      })
+    }
   }
 
   const markBook = () => {
@@ -86,6 +91,7 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
   }
 
   const removeBook = () => {
+    console.log(book)
     if (userBookID) {
       removeFromList(userBookID).then(() => {
         setIsFinished(false)

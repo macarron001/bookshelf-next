@@ -15,13 +15,13 @@ import {
   TitleBar,
   RatingContainer,
   SideButton,
-} from "../styled/bookshelf"
+} from "./style"
 import { BookType } from "api/types"
 import { StatusEnum } from "api/enums"
-import { addToReadingList } from "api/books/addToReadingList"
+import { addToReadingList } from "api/books"
 import Rating from "@mui/material/Rating"
-import { setRating } from "api/books/setRating"
-import SideBarExt from "./SideBarExt"
+import { setRating } from "api/books"
+import SideBarExt from "../bookshelf/SideBarExt"
 import { useBooks } from "context/BookContext"
 import { refreshRating } from "api/utils"
 

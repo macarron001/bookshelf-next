@@ -9,7 +9,7 @@ import {
 } from "../styled"
 import { useFormik } from "formik"
 import * as Yup from "yup"
-import { login } from "api/session/login"
+import { login } from "api/session"
 import { ToastMessage } from "../toast"
 import { useRouter } from "next/router"
 import { useSession } from "hooks/useSession"

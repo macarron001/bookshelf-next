@@ -1,10 +1,11 @@
-import { markAsRead } from "api/books/markAsRead"
-import { removeFromList } from "api/books/removeFromList"
-import { setToRead } from "api/books/setToRead"
+import { markAsRead } from "api/books"
+import { removeFromList } from "api/books"
+import { setToRead } from "api/books"
 import { BookType } from "api/types"
-import { ExtendedSideBar, SideButton } from "components/styled/bookshelf"
+import { ExtendedSideBar } from "components/styled/bookshelf"
 import React from "react"
 import { useBooks } from "context/BookContext"
+import { SideButton } from "components/book/style"
 
 interface SideBarExtProps {
   book: BookType
