@@ -7,12 +7,13 @@ import { useBooks } from "context/BookContext"
 
 const LogoutBox = () => {
   const { user, setUser } = useSession()
-  const { setIsBookSelected } = useBooks()
+  const { setIsBookSelected, setActive } = useBooks()
   const router = useRouter()
 
   const handleLogout = async () => {
     const response = await logout()
     if (response === 200) {
+      setActive("Reading List")
       setUser(null)
       setIsBookSelected(false)
       router.push("/")
