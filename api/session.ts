@@ -3,12 +3,12 @@ import { baseWithAuth } from "./base"
 import { UserType } from "api/types"
 import { errorHandler } from "api/utils"
 
-export interface LoginProps {
+interface LoginProps {
   username: string
   password: string
 }
 
-export interface RegisterProps {
+interface RegisterProps {
   username: string
   password: string
 }
@@ -36,6 +36,7 @@ export const login = async ({ username, password }: LoginProps) => {
       return user
     })
     .catch((err) => {
+      console.log(err.response)
       const error = {
         password: err.response.data, // formik only accepts username || password as error
       }
