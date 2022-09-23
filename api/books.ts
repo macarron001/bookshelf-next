@@ -146,7 +146,7 @@ export const setNotes = async (
 
 export const setRating = async (
   id: number,
-  rating: number | null
+  rating: number
 ): Promise<BookType> => {
   return await baseWithAuth()
     .request({
