@@ -7,13 +7,11 @@ const BookContainer = tw.div`
   relative
 `
 const BookCard = tw.div`
-  text-ellipsis
-  overflow-hidden
-  max-h-[270px]
-  grid
-  grow-2
+  min-h-[270px]
+  grow-[2]
   grid-cols-[140px_1fr]
   gap-5
+  flex
   border-solid
   border-[1px]
   border-[#E5E4E9]
@@ -64,9 +62,12 @@ const Publisher = tw.p`
 `
 
 const Synopsis = tw.p`
+  pt-4
+  max-h-[190px]
   text-[0.875em]
   overflow-hidden
   text-ellipsis
+  whitespace-pre-line
   cursor-pointer
 `
 
@@ -99,6 +100,27 @@ const SideButton = tw.div`
   w-[40px]
   h-[40px]
   rounded-[30px]
+  relative
+`
+
+const ButtonText = tw.div`
+  absolute
+  left-1
+  top-12
+  text-gray-500
+  text-[13px]
+  text-center
+  bg-gray-100
+  border-solid
+  border-gray-300
+  border-[1px]
+  w-[75px]
+  shadow-sm
+  shadow-gray-300
+  px-1
+  py-2
+  rounded-sm
+  z-10
 `
 
 export {
@@ -116,4 +138,5 @@ export {
   RatingContainer,
   SideButton,
   SideBar,
+  ButtonText,
 }
