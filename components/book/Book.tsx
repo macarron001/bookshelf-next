@@ -15,9 +15,10 @@ import {
   TitleBar,
   RatingContainer,
   SideButton,
+  ButtonText,
 } from "./style"
 import { BookType } from "api/types"
-import { StatusEnum } from "api/enums"
+import { HoverTextEnum, StatusEnum } from "api/enums"
 import { addToReadingList } from "api/books"
 import Rating from "@mui/material/Rating"
 import { setRating } from "api/books"
@@ -33,6 +34,7 @@ interface BookProps {
 
 const Book = ({ book, rating, section = "discover" }: BookProps) => {
   const [status, setStatus] = useState<StatusEnum | string>(StatusEnum.in_list)
+  const [isHovered, setIsHovered] = useState<HoverTextEnum | string>("")
   const [currentRating, setCurrentRating] = useState<number | null>(rating)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const {
@@ -68,6 +70,10 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
     setActive("Detailed Book")
   }
 
+  const removeHover = () => {
+    setIsHovered("")
+  }
+
   return (
     <BookContainer>
       <BookCard>
@@ -75,8 +81,8 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
           <Image
             src={`${book.cover_image_url}`}
             alt=""
-            width={140}
-            height={210}
+            width={100}
+            height={150}
           />
         </BookImage>
         <BookContent>
@@ -103,10 +109,19 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
           <Synopsis onClick={handleBookSelect}>{book.synopsis}</Synopsis>
         </BookContent>
       </BookCard>
-      <SideBar>
+      <SideBar onMouseLeave={removeHover}>
         {status === StatusEnum.in_list && section === "discover" && (
           <SideButton onClick={addToList}>
-            <Image src={"/plus.png"} alt="" width={18} height={18} />
+            <Image
+              src={"/plus.png"}
+              alt=""
+              width={18}
+              height={18}
+              onMouseEnter={() => setIsHovered(HoverTextEnum.add)}
+            />
+            {isHovered === HoverTextEnum.add && (
+              <ButtonText>Add to List</ButtonText>
+            )}
           </SideButton>
         )}
         {status === StatusEnum.loading && (
@@ -122,7 +137,12 @@ const Book = ({ book, rating, section = "discover" }: BookProps) => {
         )}
         {status === StatusEnum.reading ||
           ((section === "reading" || "finished") && (
-            <SideBarExt section={section} book={book} />
+            <SideBarExt
+              section={section}
+              book={book}
+              isHovered={isHovered}
+              setIsHovered={setIsHovered}
+            />
           ))}
       </SideBar>
     </BookContainer>

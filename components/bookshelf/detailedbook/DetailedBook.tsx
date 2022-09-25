@@ -36,7 +36,8 @@ import {
 } from "api/utils"
 import { setNotes } from "api/books"
 import { useBooks } from "context/BookContext"
-import { SideButton } from "components/book/style"
+import { ButtonText, SideButton } from "components/book/style"
+import { HoverTextEnum } from "api/enums"
 
 interface DetailedBookProps {
   book: BookType
@@ -44,6 +45,7 @@ interface DetailedBookProps {
 
 const DetailedBook = ({ book }: DetailedBookProps) => {
   const { finishedBooks } = useBooks()
+  const [isHovered, setIsHovered] = useState<HoverTextEnum | string>("")
   const [currentRating, setCurrentRating] = useState<number>(() =>
     checkRating(book)
   )
@@ -118,6 +120,10 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
     }
   }
 
+  const removeHover = () => {
+    setIsHovered("")
+  }
+
   return (
     <div>
       <BookContainer>
@@ -141,21 +147,55 @@ const DetailedBook = ({ book }: DetailedBookProps) => {
             </BookTitleBox>
             <SideButtonContainer>
               {userBookID ? (
-                <ExtendedSideBar>
+                <ExtendedSideBar onMouseLeave={removeHover}>
                   <SideButton>
                     {isFinished ? (
-                      <button onClick={unmarkBook}>📘</button>
+                      <button
+                        onClick={unmarkBook}
+                        onMouseEnter={() => setIsHovered(HoverTextEnum.unread)}
+                      >
+                        📘
+                      </button>
                     ) : (
-                      <button onClick={markBook}>✅</button>
+                      <button
+                        onClick={markBook}
+                        onMouseEnter={() => setIsHovered(HoverTextEnum.read)}
+                      >
+                        ✅
+                      </button>
+                    )}
+                    {isHovered === HoverTextEnum.unread && (
+                      <ButtonText>Mark as unread</ButtonText>
+                    )}
+                    {isHovered === HoverTextEnum.read && (
+                      <ButtonText>Mark as read</ButtonText>
                     )}
                   </SideButton>
                   <SideButton>
-                    <button onClick={removeBook}>⛔</button>
+                    <button
+                      onClick={removeBook}
+                      onMouseEnter={() => setIsHovered(HoverTextEnum.remove)}
+                    >
+                      ⛔
+                    </button>
+                    {isHovered === HoverTextEnum.remove && (
+                      <ButtonText>Remove</ButtonText>
+                    )}
                   </SideButton>
                 </ExtendedSideBar>
               ) : (
                 <SideBtn onClick={addToList}>
-                  <Image src={"/plus.png"} alt="" width={18} height={18} />
+                  <Image
+                    src={"/plus.png"}
+                    alt=""
+                    width={18}
+                    height={18}
+                    onMouseEnter={() => setIsHovered(HoverTextEnum.add)}
+                    onMouseLeave={removeHover}
+                  />
+                  {isHovered === HoverTextEnum.add && (
+                    <ButtonText>Add to List</ButtonText>
+                  )}
                 </SideBtn>
               )}
             </SideButtonContainer>

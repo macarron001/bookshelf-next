@@ -1,18 +1,26 @@
+import React, { Dispatch, SetStateAction } from "react"
 import { markAsRead } from "api/books"
 import { removeFromList } from "api/books"
 import { setToRead } from "api/books"
 import { BookType } from "api/types"
 import { ExtendedSideBar } from "components/styled/bookshelf"
-import React from "react"
 import { useBooks } from "context/BookContext"
-import { SideButton } from "components/book/style"
+import { ButtonText, SideButton } from "components/book/style"
+import { HoverTextEnum } from "api/enums"
 
 interface SideBarExtProps {
   book: BookType
   section: string
+  isHovered: HoverTextEnum | string
+  setIsHovered: Dispatch<SetStateAction<HoverTextEnum | string>>
 }
 
-const SideBarExt = ({ book, section }: SideBarExtProps) => {
+const SideBarExt = ({
+  book,
+  section,
+  isHovered,
+  setIsHovered,
+}: SideBarExtProps) => {
   const { onRemove } = useBooks()
 
   const markBook = () => {
@@ -35,11 +43,39 @@ const SideBarExt = ({ book, section }: SideBarExtProps) => {
       {section !== "discover" && (
         <ExtendedSideBar>
           <SideButton>
-            {section === "reading" && <button onClick={markBook}>✅</button>}
-            {section === "finished" && <button onClick={unmarkBook}>📘</button>}
+            {section === "reading" && (
+              <button
+                onClick={markBook}
+                onMouseEnter={() => setIsHovered(HoverTextEnum.read)}
+              >
+                ✅
+              </button>
+            )}
+            {isHovered === HoverTextEnum.read && (
+              <ButtonText>Mark as read</ButtonText>
+            )}
+            {section === "finished" && (
+              <button
+                onClick={unmarkBook}
+                onMouseEnter={() => setIsHovered(HoverTextEnum.unread)}
+              >
+                📘
+              </button>
+            )}
+            {isHovered === HoverTextEnum.unread && (
+              <ButtonText>Mark as unread</ButtonText>
+            )}
           </SideButton>
           <SideButton>
-            <button onClick={removeBook}>⛔</button>
+            <button
+              onClick={removeBook}
+              onMouseEnter={() => setIsHovered(HoverTextEnum.remove)}
+            >
+              ⛔
+            </button>
+            {isHovered === HoverTextEnum.remove && (
+              <ButtonText>Remove</ButtonText>
+            )}
           </SideButton>
         </ExtendedSideBar>
       )}
