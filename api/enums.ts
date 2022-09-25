@@ -10,3 +10,10 @@ export enum StatusEnum {
   loading = "Loading",
   reading = "Reading List",
 }
+
+export enum HoverTextEnum {
+  add = "Add to List",
+  read = "Mark as read",
+  unread = "Mark as unread",
+  remove = "Remove from list",
+}
