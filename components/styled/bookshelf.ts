@@ -127,7 +127,7 @@ const BookList = tw.ul`
   p-0
   grid
   gap-[1em]
-  mt-5
+  mb-5
 `
 
 const NoResultContainer = tw.div`
